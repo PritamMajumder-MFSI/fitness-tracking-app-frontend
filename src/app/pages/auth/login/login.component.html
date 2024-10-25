@@ -1,1 +1,23 @@
-<app-auth-layout></app-auth-layout>
+<app-auth-layout>
+  <form class="outerForm">
+    <h5>Welcome to Fitness Tracker</h5>
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input type="email" matInput placeholder="Ex. pat@example.com" />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Password</mat-label>
+      <input type="password" matInput placeholder="" />
+    </mat-form-field>
+
+    <button mat-flat-button>Login</button>
+    <span>Forgot password</span>
+    <button class="googleLogo">
+      <img src="icons/google_logo.svg" />
+      <span>Sign in with google</span>
+    </button>
+    <span
+      >Don't have an account yet? <a routerLink="/auth/signup">Sign up now!</a>
+    </span>
+  </form>
+</app-auth-layout>

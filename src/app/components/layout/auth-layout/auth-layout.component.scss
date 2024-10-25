@@ -1,0 +1,21 @@
+.authOuter{
+    height: 100vh;
+    overflow:hidden;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    .authImg{
+
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .authImg {
+      display: none;
+    }
+    .authOuter{
+        grid-template-columns: 100%;
+    }
+  }
