@@ -1,1 +1,57 @@
-<p>signup works!</p>
+<app-auth-layout>
+  <form class="outer-form" [formGroup]="signUpForm" (ngSubmit)="login()">
+    <h5>Welcome to Fitness Tracker</h5>
+    <mat-form-field appearance="outline">
+      <mat-label>Username</mat-label>
+      <input formControlName="username" type="email" matInput placeholder="" />
+      <mat-error>Username is required</mat-error>
+    </mat-form-field>
+    <mat-form-field class="mt-half" appearance="outline">
+      <mat-label>Email</mat-label>
+      <input
+        formControlName="email"
+        type="email"
+        matInput
+        placeholder="Ex. pritam@example.com"
+      />
+      <mat-error>Must be a valid email</mat-error>
+    </mat-form-field>
+    <mat-form-field class="mt-half" appearance="outline">
+      <mat-label>Password</mat-label>
+      <input
+        type="password"
+        formControlName="password"
+        matInput
+        placeholder=""
+      />
+      <mat-error>Password is required</mat-error>
+    </mat-form-field>
+    <mat-form-field class="mt-half" appearance="outline">
+      <mat-label>Confirm Password</mat-label>
+      <input
+        type="password"
+        formControlName="confirmPassword"
+        matInput
+        placeholder=""
+      />
+      <mat-error>Confirming password is required</mat-error>
+    </mat-form-field>
+    <button
+      class="mt-half"
+      mat-flat-button
+      type="submit"
+      [disabled]="!signUpForm.valid"
+    >
+      Create an account
+    </button>
+
+    <button class="google-logo mt-1" type="button">
+      <img src="icons/google_logo.svg" />
+      <span>Sign up with google</span>
+    </button>
+    <span class="mt-1"
+      >Already have an account?
+      <a class="anchor-span" routerLink="/auth/login">Login now!</a>
+    </span>
+  </form>
+</app-auth-layout>

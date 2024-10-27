@@ -8,13 +8,13 @@ import { Observable } from 'rxjs';
 export class BackendService {
   private httpHeaders = new HttpHeaders();
 
-  private backendUri = 'http://localhost:3000/';
+  private backendUri = 'http://localhost:3000/api/v1/';
   constructor(private _http: HttpClient) {
     this.httpHeaders.set('Content-Type', 'application/json');
   }
 
   public postApiCall<T, B>(route: string, payload: B): Observable<T> {
-    return this._http.post<T>(this.backendUri, payload, {
+    return this._http.post<T>(this.backendUri + route, payload, {
       headers: this.httpHeaders,
     });
   }

@@ -13,6 +13,7 @@ import {
 } from '@angular/forms';
 import { BackendService } from '../../../services/backend.service';
 import { lastValueFrom } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -45,7 +46,10 @@ export class LoginComponent {
       return;
     }
     const response = await lastValueFrom(
-      this._backendService.postApiCall('login', this.loginFormGroup.value)
+      this._backendService.postApiCall<any, any>(
+        '/auth/login',
+        this.loginFormGroup.value
+      )
     );
     console.log(response);
   }
