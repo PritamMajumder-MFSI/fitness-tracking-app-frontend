@@ -8,6 +8,7 @@ import { DashboardComponent } from './pages/maininterface/dashboard/dashboard.co
 import { WorkoutsComponent } from './pages/maininterface/workouts/workouts.component';
 import { GoalsComponent } from './pages/maininterface/goals/goals.component';
 import { MainInterfaceComponent } from './components/layout/main-interface/main-interface.component';
+import { authGuardFn } from './guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -30,6 +31,7 @@ export const routes: Routes = [
   {
     path: '',
     component: MainInterfaceComponent,
+    canActivate: [authGuardFn],
     children: [
       {
         path: '',
