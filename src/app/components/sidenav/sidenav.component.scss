@@ -1,0 +1,43 @@
+.outer-container{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    .title{
+        padding: 1rem 0rem 0rem 1rem;
+        font-size: 1.5rem;
+    }
+    ul{
+        display: flex;
+        flex-direction: column;
+        list-style: none;
+        gap: 1rem;
+        flex:1;
+        li{
+            cursor:pointer;
+            padding: 1rem 1rem;
+            &:hover{
+                background-color: #aeccea2c;
+            }
+        }
+    }
+    .logout-btn{
+      
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        cursor: pointer;
+        margin: 0.5rem;
+        padding: 0.5rem;
+        margin-bottom: 1rem;
+        border-radius: 0.5rem;  
+        .logout-details{
+            display: flex;
+            flex-direction: column;
+        }
+       &:hover{
+            background-color: #aeccea2c;
+        }
+    }
+}
+//  border:  1px solid #005cbb; 
