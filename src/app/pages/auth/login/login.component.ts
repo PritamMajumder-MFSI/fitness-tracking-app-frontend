@@ -3,7 +3,7 @@ import { AuthLayoutComponent } from '../../../components/layout/auth-layout/auth
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import {
   FormBuilder,
   FormControl,
@@ -13,7 +13,9 @@ import {
 } from '@angular/forms';
 import { BackendService } from '../../../services/backend.service';
 import { lastValueFrom } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import getErrorMessage from '../../../../utils/getErrorMessage';
+import { CommonModule } from '@angular/common';
+import { ToastService } from '../../../services/toast.service';
 
 @Component({
   selector: 'app-login',
@@ -24,20 +26,29 @@ import { HttpClient } from '@angular/common/http';
     MatButtonModule,
     MatIconModule,
     RouterLink,
+    CommonModule,
     ReactiveFormsModule,
   ],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss',
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
   public loginFormGroup: FormGroup;
+
   constructor(
     private _fb: FormBuilder,
-    private _backendService: BackendService
+    private _backendService: BackendService,
+    private toastService: ToastService,
+    private router: Router
   ) {
     this.loginFormGroup = this._fb.group({
       email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [Validators.required]),
+      password: new FormControl('', [
+        Validators.required,
+        Validators.minLength(8),
+        Validators.maxLength(30),
+        Validators.pattern(/^[a-zA-Z0-9]{8,30}$/),
+      ]),
     });
   }
 
@@ -45,12 +56,26 @@ export class LoginComponent {
     if (this.loginFormGroup.invalid) {
       return;
     }
-    const response = await lastValueFrom(
-      this._backendService.postApiCall<any, any>(
-        '/auth/login',
-        this.loginFormGroup.value
-      )
-    );
-    console.log(response);
+
+    try {
+      const response = await lastValueFrom(
+        this._backendService.postApiCall<any, any>(
+          '/auth/login',
+          this.loginFormGroup.value
+        )
+      );
+      console.log(response);
+      this.router.navigate(['/']);
+    } catch (err) {
+      this.toastService.add(
+        err instanceof Error ? err.message : 'Signup failed',
+        3000,
+        'error'
+      );
+    }
   }
+  public getErrorMessage: (
+    controlName: string,
+    form: FormGroup
+  ) => string | null = getErrorMessage;
 }

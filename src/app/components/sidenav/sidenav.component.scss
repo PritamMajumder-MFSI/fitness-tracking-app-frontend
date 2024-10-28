@@ -11,10 +11,15 @@
         display: flex;
         flex-direction: column;
         list-style: none;
+        margin-top: 1rem;
         gap: 1rem;
         flex:1;
         li{
+            display: flex;
+            gap: 4px;
+            align-items: center;
             cursor:pointer;
+            color: #005cbb;
             padding: 1rem 1rem;
             &:hover{
                 background-color: #aeccea2c;

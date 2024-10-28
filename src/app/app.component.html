@@ -1,1 +1,11 @@
 <router-outlet></router-outlet>
+<div class="toast-container">
+  <div
+    *ngFor="let toast of toastService.toasts; let i = index"
+    class="toast"
+    [ngClass]="toast.type"
+  >
+    {{ toast.message }}
+    <button class="close-btn" (click)="removeToast(i)">X</button>
+  </div>
+</div>

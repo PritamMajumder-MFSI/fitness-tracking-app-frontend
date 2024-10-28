@@ -1,22 +1,28 @@
 <app-auth-layout>
   <form class="outer-form" [formGroup]="signUpForm" (ngSubmit)="login()">
     <h5>Welcome to TrackFit</h5>
+
     <mat-form-field appearance="outline">
       <mat-label>Username</mat-label>
-      <input formControlName="username" type="email" matInput placeholder="" />
-      <mat-error>Username is required</mat-error>
+      <input formControlName="username" type="text" matInput placeholder="" />
+      <mat-error *ngIf="getErrorMessage('username', signUpForm)">
+        {{ getErrorMessage("username", signUpForm) }}
+      </mat-error>
     </mat-form-field>
-    <mat-form-field class="mt-half" appearance="outline">
+    <mat-form-field appearance="outline" class="mt-half">
       <mat-label>Email</mat-label>
       <input
         formControlName="email"
         type="email"
         matInput
-        placeholder="Ex. pritam@example.com"
+        placeholder="Ex. example@example.com"
       />
-      <mat-error>Must be a valid email</mat-error>
+      <mat-error *ngIf="getErrorMessage('email', signUpForm)">
+        {{ getErrorMessage("email", signUpForm) }}
+      </mat-error>
     </mat-form-field>
-    <mat-form-field class="mt-half" appearance="outline">
+
+    <mat-form-field appearance="outline" class="mt-half">
       <mat-label>Password</mat-label>
       <input
         type="password"
@@ -24,9 +30,12 @@
         matInput
         placeholder=""
       />
-      <mat-error>Password is required</mat-error>
+      <mat-error *ngIf="getErrorMessage('password', signUpForm)">
+        {{ getErrorMessage("password", signUpForm) }}
+      </mat-error>
     </mat-form-field>
-    <mat-form-field class="mt-half" appearance="outline">
+
+    <mat-form-field appearance="outline" class="mt-half">
       <mat-label>Confirm Password</mat-label>
       <input
         type="password"
@@ -34,23 +43,26 @@
         matInput
         placeholder=""
       />
-      <mat-error>Confirming password is required</mat-error>
+      <mat-error *ngIf="getErrorMessage('confirmPassword', signUpForm)">
+        {{ getErrorMessage("confirmPassword", signUpForm) }}
+      </mat-error>
     </mat-form-field>
+
     <button
       class="mt-half"
       mat-flat-button
       type="submit"
-      [disabled]="!signUpForm.valid"
+      [disabled]="signUpForm.invalid"
     >
       Create an account
     </button>
-
     <button class="google-logo mt-1" type="button">
       <img src="icons/google_logo.svg" />
-      <span>Sign up with google</span>
+      <span>Sign up with Google</span>
     </button>
-    <span class="mt-1"
-      >Already have an account?
+
+    <span class="mt-1">
+      Already have an account?
       <a class="anchor-span" routerLink="/auth/login">Login now!</a>
     </span>
   </form>

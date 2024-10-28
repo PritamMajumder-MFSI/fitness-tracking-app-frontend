@@ -16,11 +16,13 @@ export class BackendService {
   public postApiCall<T, B>(route: string, payload: B): Observable<T> {
     return this._http.post<T>(this.backendUri + route, payload, {
       headers: this.httpHeaders,
+      withCredentials: true,
     });
   }
   public getApi<T>(route: string): Observable<T> {
     return this._http.get<T>(this.backendUri + route, {
       headers: this.httpHeaders,
+      withCredentials: true,
     });
   }
 }

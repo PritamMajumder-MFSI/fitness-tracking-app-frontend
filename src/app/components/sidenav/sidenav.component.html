@@ -1,11 +1,10 @@
 <div class="outer-container">
   <p class="title">TrackFit</p>
   <ul>
-    <li routerLink="/">
-      <span class="anchor-span">Dashboard</span>
+    <li [routerLink]="nav.route" *ngFor="let nav of sidenavItems">
+      <mat-icon>{{ nav.icon }}</mat-icon>
+      <span class="anchor-span">{{ nav.title }}</span>
     </li>
-    <li routerLink="/workouts"><span class="anchor-span">Workouts</span></li>
-    <li routerLink="/goals"><span class="anchor-span">Fitness Goals</span></li>
   </ul>
   <div class="logout-btn">
     <div class="logout-details">
