@@ -1,6 +1,8 @@
 .outer-container{
     height: 100%;
     width: 100%;
+    padding: 0.5rem;
+    border-right: 2px solid rgb(240, 238, 238);
     display: flex;
     flex-direction: column;
     .title{
@@ -21,6 +23,7 @@
             cursor:pointer;
             color: #005cbb;
             padding: 1rem 1rem;
+            border-radius: 4px;
             &:hover{
                 background-color: #aeccea2c;
             }

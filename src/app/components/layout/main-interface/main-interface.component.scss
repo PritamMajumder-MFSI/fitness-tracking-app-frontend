@@ -1,13 +1,16 @@
 .outer-layout{
     display: flex;
-    max-width: 100vw;
+    max-width: 100%;
+
     .sidenav{
         height: 100vh;
-        width: 10rem;
+        width: 12rem;
     }
     .content{
         max-height: 100vh;
         overflow-y:auto;
-        padding:1rem;
+        flex:1;
+        overflow-x:hidden;
+        padding:0.5rems;
     }
 }
