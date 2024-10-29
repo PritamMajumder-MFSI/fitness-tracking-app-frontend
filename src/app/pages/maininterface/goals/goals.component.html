@@ -33,7 +33,7 @@
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef>View Details</th>
         <td mat-cell *matCellDef="let goal">
-          <mat-icon>information</mat-icon>
+          <mat-icon (click)="viewGoalDetails(goal)">information</mat-icon>
         </td>
       </ng-container>
 

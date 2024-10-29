@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import {
   MatPaginator,
   MatPaginatorModule,
@@ -15,6 +15,7 @@ import { DatePipe } from '@angular/common';
 import { GoalDialogComponent } from '../../../dialogs/goal-dialog/goal-dialog.component';
 import { IGoal } from '../../../../models/Goal';
 import { FormatCamelCasePipe } from '../../../pipes/format-camel-case.pipe';
+import { GoalDetailsComponent } from '../../../dialogs/goal-details/goal-details.component';
 
 @Component({
   selector: 'app-goals',
@@ -87,6 +88,21 @@ export class GoalsComponent {
       } catch (err) {
         this.toastService.add('Failed to create goal', 3000, 'error');
       }
+    });
+  }
+  viewGoalDetails(goal: IGoal) {
+    const dialogRef = this.dialog.open(GoalDetailsComponent, {
+      width: '90vw',
+      maxWidth: '800px',
+      height: '90vh',
+      maxHeight: '90vh',
+      data: {
+        goal,
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('Dialog closed', result);
     });
   }
 }

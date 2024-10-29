@@ -1,0 +1,48 @@
+<div class="details-container">
+  <h5 mat-dialog-title style="font-weight: 500">Goal Details</h5>
+  <mat-divider></mat-divider>
+  <div class="details">
+    <div>
+      <span class="title">Goal Type: </span
+      ><span>{{ this.data.goal.goalType | formatCamelCase }}</span>
+    </div>
+    <div class>
+      <span class="title">Target Value: </span
+      ><span>{{ this.data.goal.targetValue }}</span>
+    </div>
+    <div class>
+      <span class="title">From: </span
+      ><span>{{ this.data.goal.from | date : "dd/MM/yyyy" }}</span>
+    </div>
+    <div class>
+      <span class="title">To: </span
+      ><span>{{ this.data.goal.to | date : "dd/MM/yyyy" }}</span>
+    </div>
+  </div>
+
+  <div mat-dialog-content class="chart-container">
+    <div class="chart-wrapper">
+      <span class="title">Calories Burned</span>
+      <canvas #chartCalories></canvas>
+    </div>
+
+    <div class="chart-wrapper">
+      <span class="title">Workouts Done per Date</span>
+      <canvas #chartWorkouts></canvas>
+    </div>
+
+    <div class="chart-wrapper">
+      <span class="title">Workout Types</span>
+      <canvas #chartTypes></canvas>
+    </div>
+
+    <div class="chart-wrapper">
+      <span class="title">Progress Towards Goal</span>
+      <canvas #chartProgress></canvas>
+    </div>
+  </div>
+
+  <div mat-dialog-actions class="footer">
+    <button mat-flat-button (click)="dialogRef.close()">Close</button>
+  </div>
+</div>
