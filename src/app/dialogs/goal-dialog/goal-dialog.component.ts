@@ -18,9 +18,8 @@ import { MatButton } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatSelectModule } from '@angular/material/select';
-
 @Component({
-  selector: 'app-workout-dialog',
+  selector: 'app-goal-dialog',
   standalone: true,
   imports: [
     MatInputModule,
@@ -33,28 +32,31 @@ import { MatSelectModule } from '@angular/material/select';
     MatDividerModule,
     MatSelectModule,
   ],
-  templateUrl: './workout-dialog.component.html',
-  styleUrls: ['./workout-dialog.component.scss'],
+  templateUrl: './goal-dialog.component.html',
+  styleUrl: './goal-dialog.component.scss',
 })
-export class WorkoutDialogComponent implements OnInit {
-  public workoutForm: FormGroup;
-
+export class GoalDialogComponent {
+  public goalForm: FormGroup;
   public today = new Date();
+  public goalTypes = [
+    { value: 'workoutPerWeek', displayName: 'Workout per week' },
+    { value: 'specificCalorieGoal', displayName: 'Specific calorie goal' },
+  ];
   constructor(
     private fb: FormBuilder,
-    public dialogRef: MatDialogRef<WorkoutDialogComponent>,
+    public dialogRef: MatDialogRef<GoalDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
-    this.workoutForm = this.fb.group({
-      type: ['', Validators.required],
-      duration: ['', [Validators.required, Validators.min(1)]],
-      calories: ['', [Validators.required, Validators.min(0)]],
-      date: ['', Validators.required],
+    this.goalForm = this.fb.group({
+      goalType: ['', Validators.required],
+      targetValue: ['', [Validators.required, Validators.min(0)]],
+      from: ['', Validators.required],
+      to: ['', Validators.required],
     });
   }
   ngOnInit(): void {
     if (this.data?.workout) {
-      this.workoutForm.setValue({
+      this.goalForm.setValue({
         date: this.data?.workout?.date,
         duration: this.data?.workout?.duration,
         calories: this.data?.workout?.calories,
@@ -68,8 +70,8 @@ export class WorkoutDialogComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.workoutForm.valid) {
-      const response = this.workoutForm.value;
+    if (this.goalForm.valid) {
+      const response = this.goalForm.value;
       if (this.data.workout) {
         response._id = this.data.workout._id;
       }

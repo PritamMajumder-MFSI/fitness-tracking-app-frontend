@@ -27,14 +27,12 @@ export class BackendService {
     );
   }
   public getApi<T>(
-    route: string
+    route: string,
+    params: { [key: string]: string } = {}
   ): Observable<{ success: boolean; data: T; message: string }> {
     return this._http.get<{ success: boolean; data: T; message: string }>(
       this.backendUri + route,
-      {
-        headers: this.httpHeaders,
-        withCredentials: true,
-      }
+      { params, headers: this.httpHeaders, withCredentials: true }
     );
   }
   public patchApiCall<T, B>(

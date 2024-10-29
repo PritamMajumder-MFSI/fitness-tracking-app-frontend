@@ -1,0 +1,86 @@
+<div class="goal-dialog-container">
+  <h5 mat-dialog-title style="font-weight: 500">
+    {{ this.data?.goal ? "Edit" : "Create" }} Goal
+  </h5>
+  <mat-divider></mat-divider>
+  <mat-dialog-content>
+    <form [formGroup]="goalForm" (ngSubmit)="onSubmit()">
+      <mat-form-field class="mt-half" appearance="outline">
+        <mat-label>Type of goal</mat-label>
+        <mat-select formControlName="goalType">
+          @for (goalType of goalTypes; track goalType) {
+          <mat-option [value]="goalType.value">{{
+            goalType.displayName
+          }}</mat-option>
+          }
+        </mat-select>
+
+        <mat-error *ngIf="getErrorMessage('goalType', goalForm)">{{
+          getErrorMessage("goalType", goalForm)
+        }}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="mt-half" appearance="outline">
+        <mat-label>Target Value</mat-label>
+        <input
+          type="number"
+          formControlName="targetValue"
+          matInput
+          placeholder="Enter duration"
+        />
+        <mat-error *ngIf="getErrorMessage('targetValue', goalForm)">{{
+          getErrorMessage("targetValue", goalForm)
+        }}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="mt-half" appearance="outline">
+        <mat-label>From</mat-label>
+        <input
+          matInput
+          [matDatepicker]="picker1"
+          [min]="today"
+          formControlName="from"
+          placeholder="Select date"
+        />
+        <mat-datepicker-toggle
+          matIconSuffix
+          [for]="picker1"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+        <mat-error *ngIf="getErrorMessage('from', goalForm)">
+          {{ getErrorMessage("from", goalForm) }}
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="mt-half" appearance="outline">
+        <mat-label>To</mat-label>
+        <input
+          matInput
+          [matDatepicker]="picker2"
+          formControlName="to"
+          [min]="today"
+          placeholder="Select date"
+        />
+        <mat-datepicker-toggle
+          matIconSuffix
+          [for]="picker2"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
+        <mat-error *ngIf="getErrorMessage('to', goalForm)">
+          {{ getErrorMessage("to", goalForm) }}
+        </mat-error>
+      </mat-form-field>
+    </form>
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+    <button mat-button (click)="onCancel()">Cancel</button>
+    <button
+      mat-button
+      type="submit"
+      [disabled]="goalForm.invalid"
+      (click)="onSubmit()"
+    >
+      {{ this.data?.goal ? "Edit" : "Create" }}
+    </button>
+  </mat-dialog-actions>
+</div>

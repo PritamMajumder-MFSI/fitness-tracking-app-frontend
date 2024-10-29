@@ -1,1 +1,53 @@
-<p>goals works!</p>
+<div class="goals-container">
+  <span class="title">Goals</span>
+  <span class="subtitle">View all your goals here</span>
+  <button class="mt-1 table-page-btn" mat-flat-button (click)="createGoal()">
+    Add Goal
+  </button>
+  <div class="table-wrapper">
+    <table mat-table [dataSource]="dataSource" matSort>
+      <ng-container matColumnDef="goalType">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Type</th>
+        <td mat-cell *matCellDef="let goal">
+          {{ goal.goalType | formatCamelCase }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="targetValue">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Target Value</th>
+        <td mat-cell *matCellDef="let goal">{{ goal.targetValue }}</td>
+      </ng-container>
+      <ng-container matColumnDef="from">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>From</th>
+        <td mat-cell *matCellDef="let goal">
+          {{ goal.from | date : "dd/MM/yyyy" }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="to">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>To</th>
+        <td mat-cell *matCellDef="let goal">
+          {{ goal.to | date : "dd/MM/yyyy" }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>View Details</th>
+        <td mat-cell *matCellDef="let goal">
+          <mat-icon>information</mat-icon>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
+
+  <mat-paginator
+    [length]="totalGoals"
+    [pageSize]="pageSize"
+    [pageIndex]="pageIndex"
+    [pageSizeOptions]="[5, 10, 20]"
+    (page)="onPageChange($event)"
+  >
+  </mat-paginator>
+</div>

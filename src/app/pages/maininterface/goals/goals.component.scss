@@ -1,0 +1,40 @@
+.goals-container {
+    padding: 20px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    .title{
+        font-size: xx-large;
+    }
+    .table-page-btn{
+        margin-left: auto;
+        border-radius: 4px;
+        width: fit-content;
+    }
+    .table-wrapper{   
+        flex:1;
+        margin-top: 1rem;
+        table{
+            border-radius: 4px;
+            overflow: hidden;
+         
+            th{
+                background-color: #005cbb;
+                color: #faf9fd;
+            }
+            td{
+                border: none;
+            } tr{
+                &:hover{
+                    background:#aeccea2c;
+                }
+            }
+            mat-icon{
+                cursor:pointer;
+            }
+        }
+    }
+  
+  }
+  
