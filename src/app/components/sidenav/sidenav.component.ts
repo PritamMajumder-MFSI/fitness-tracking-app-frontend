@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
+import { AuthServiceService } from '../../services/auth-service.service';
 
 @Component({
   selector: 'app-sidenav',
@@ -12,7 +13,7 @@ import { Router } from '@angular/router';
   styleUrl: './sidenav.component.scss',
 })
 export class SidenavComponent {
-  constructor(private router: Router) {}
+  constructor(private router: Router, public authService: AuthServiceService) {}
   public sidenavItems = [
     {
       title: 'Dashboard',

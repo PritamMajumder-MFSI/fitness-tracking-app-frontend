@@ -38,15 +38,16 @@
       
         display: flex;
         align-items: center;
-        gap: 4px;
         cursor: pointer;
-        margin: 0.5rem;
-        padding: 0.5rem;
-        margin-bottom: 1rem;
-        border-radius: 0.5rem;  
+        padding: 0.5rem; 
+        border-radius: 0.5rem;   
+        background-color: #7885922c;
         .logout-details{
             display: flex;
             flex-direction: column;
+        }
+        span{
+            max-width:8rem;
         }
        &:hover{
             background-color: #aeccea2c;
