@@ -14,19 +14,24 @@
         flex-direction: column;
         list-style: none;
         margin-top: 1rem;
-        gap: 1rem;
+        gap: 0.25rem;
         flex:1;
         li{
             display: flex;
             gap: 4px;
             align-items: center;
             cursor:pointer;
-            color: #005cbb;
+            font-weight: 500;
             padding: 1rem 1rem;
             border-radius: 4px;
             &:hover{
                 background-color: #aeccea2c;
             }
+        }
+        .active{
+            
+            background-color: #aeccea2c;
+            color: #005cbb;
         }
     }
     .logout-btn{

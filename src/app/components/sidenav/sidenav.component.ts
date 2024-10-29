@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sidenav',
@@ -11,6 +12,7 @@ import { RouterLink } from '@angular/router';
   styleUrl: './sidenav.component.scss',
 })
 export class SidenavComponent {
+  constructor(private router: Router) {}
   public sidenavItems = [
     {
       title: 'Dashboard',
@@ -28,4 +30,7 @@ export class SidenavComponent {
       icon: 'flag',
     },
   ];
+  isActive(route: string): boolean {
+    return this.router.url === route;
+  }
 }

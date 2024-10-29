@@ -1,9 +1,13 @@
 <div class="outer-container">
   <p class="title">TrackFit</p>
   <ul>
-    <li [routerLink]="nav.route" *ngFor="let nav of sidenavItems">
+    <li
+      [routerLink]="nav.route"
+      *ngFor="let nav of sidenavItems"
+      [ngClass]="{ active: isActive(nav.route) }"
+    >
       <mat-icon>{{ nav.icon }}</mat-icon>
-      <span class="anchor-span">{{ nav.title }}</span>
+      <span>{{ nav.title }}</span>
     </li>
   </ul>
   <div class="logout-btn">
