@@ -8,6 +8,13 @@
 }
 html, body { height: 100%;}
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color: #faf9fd;}
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
+}
 .anchor-span{
     color: #005cbb;
     text-decoration: none;
@@ -28,4 +35,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-
     font-size: small;
     font-weight: 500;
     color: gray;
+}
+.mat-mdc-select-arrow{
+    display: none;
 }

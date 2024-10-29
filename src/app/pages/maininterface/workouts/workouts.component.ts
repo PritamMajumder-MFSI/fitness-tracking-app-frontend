@@ -1,87 +1,130 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { IWorkout } from '../../../../models/Workout';
-import { MatPaginatorModule } from '@angular/material/paginator';
+import {
+  MatPaginator,
+  MatPaginatorModule,
+  PageEvent,
+} from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { MatIcon } from '@angular/material/icon';
 import { MatButton } from '@angular/material/button';
+import { MatDialog } from '@angular/material/dialog';
+import { WorkoutDialogComponent } from '../../../dialogs/workout-dialog/workout-dialog.component';
+import { BackendService } from '../../../services/backend.service';
+import { lastValueFrom } from 'rxjs';
+import { ToastService } from '../../../services/toast.service';
+import { IWorkoutType } from '../../../../models/WorkoutTypes';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-workouts',
   standalone: true,
-  imports: [MatPaginatorModule, MatTableModule, MatIcon, MatButton],
+  imports: [MatPaginatorModule, MatTableModule, MatIcon, MatButton, DatePipe],
   templateUrl: './workouts.component.html',
   styleUrl: './workouts.component.scss',
 })
 export class WorkoutsComponent implements OnInit {
-  displayedColumns: string[] = ['name', 'duration', 'type', 'actions'];
+  displayedColumns: string[] = [
+    'type',
+    'duration',
+    'calories',
+    'date',
+    'actions',
+  ];
   dataSource: IWorkout[] = [];
+  workoutTypes: IWorkoutType[] = [];
 
+  totalWorkouts = 0;
+  pageSize = 5;
+  pageIndex = 0;
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+  constructor(
+    private dialog: MatDialog,
+    private backendService: BackendService,
+    private toastService: ToastService
+  ) {}
   ngOnInit() {
-    this.fetchWorkouts();
+    this.fetchWorkouts(this.pageIndex, this.pageSize);
+    this.fetchWorkoutTypes();
   }
-
-  fetchWorkouts() {
-    const workouts: IWorkout[] = [
-      {
-        _id: '2',
-        type: 'Cycling',
-        duration: 45,
-        calories: 400,
-        userId: 'user2',
-        date: new Date('2024-10-05'),
-        isActive: true,
-        createdAt: new Date('2024-10-01T11:00:00Z'),
-      },
-      {
-        _id: '3',
-        type: 'Swimming',
-        duration: 60,
-        calories: 500,
-        userId: 'user1',
-        date: new Date('2024-10-10'),
-        isActive: false,
-        createdAt: new Date('2024-10-02T12:00:00Z'),
-      },
-      {
-        _id: '4',
-        type: 'Yoga',
-        duration: 40,
-        calories: 200,
-        userId: 'user3',
-        date: new Date('2024-10-15'),
-        isActive: true,
-        createdAt: new Date('2024-10-03T14:00:00Z'),
-      },
-      {
-        _id: '5',
-        type: 'Weight Lifting',
-        duration: 50,
-        calories: 600,
-        userId: 'user2',
-        date: new Date('2024-10-20'),
-        isActive: true,
-        createdAt: new Date('2024-10-04T09:00:00Z'),
-      },
-      {
-        _id: '6',
-        type: 'HIIT',
-        duration: 30,
-        calories: 350,
-        userId: 'user3',
-        date: new Date('2024-10-25'),
-        isActive: false,
-        createdAt: new Date('2024-10-05T16:00:00Z'),
-      },
-    ];
-
-    this.dataSource = workouts;
+  async fetchWorkoutTypes() {
+    try {
+      const result = await lastValueFrom(
+        this.backendService.getApi<IWorkoutType[]>('workout/workout-types')
+      );
+      this.workoutTypes = result.data;
+    } catch (err) {
+      this.toastService.add('Could not fetch workout types', 3000, 'error');
+    }
   }
-
+  async fetchWorkouts(page: number, limit: number) {
+    try {
+      const result = await lastValueFrom(
+        this.backendService.getApi<{ workouts: IWorkout[]; total: number }>(
+          `workout?page=${page + 1}&limit=${limit}`
+        )
+      );
+      this.dataSource = result.data.workouts;
+      this.totalWorkouts = result.data.total;
+    } catch (err) {
+      this.toastService.add('Could not fetch workouts', 3000, 'error');
+    }
+  }
+  onPageChange(event: PageEvent) {
+    this.pageIndex = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.fetchWorkouts(this.pageIndex, this.pageSize);
+  }
   editWorkout(workout: IWorkout) {
     console.log('Editing workout:', workout);
+    let dialogRef = this.dialog.open(WorkoutDialogComponent, {
+      data: { workoutTypes: this.workoutTypes, workout },
+    });
+    dialogRef.afterClosed().subscribe(async (result) => {
+      if (!result) return;
+      try {
+        await lastValueFrom(
+          this.backendService.patchApiCall('workout', result)
+        );
+        this.toastService.add('Workout updated successfully', 3000, 'success');
+        this.fetchWorkouts(this.pageIndex, this.pageSize);
+      } catch (err) {
+        this.toastService.add('Failed to update workout', 3000, 'error');
+      }
+    });
   }
 
-  deleteWorkout(id: string) {
-    this.dataSource = this.dataSource.filter((workout) => workout._id !== id);
+  async deleteWorkout(id: string) {
+    console.log(id);
+    try {
+      await lastValueFrom(
+        this.backendService.patchApiCall('workout', {
+          _id: id,
+          isActive: false,
+        })
+      );
+      this.dataSource = this.dataSource.filter((workout) => workout._id !== id);
+      this.toastService.add('Workout deleted successfully', 3000, 'success');
+    } catch (err) {
+      this.toastService.add('Failed to delete workout', 3000, 'error');
+    }
+  }
+  createWorkout() {
+    let dialogRef = this.dialog.open(WorkoutDialogComponent, {
+      data: { workoutTypes: this.workoutTypes },
+    });
+
+    dialogRef.afterClosed().subscribe(async (result) => {
+      if (!result) return;
+      try {
+        await lastValueFrom(this.backendService.postApiCall('workout', result));
+        this.toastService.add('Workout created successfully', 3000, 'success');
+        this.fetchWorkouts(this.pageIndex, this.pageSize);
+      } catch (err) {
+        this.toastService.add('Failed to create workout', 3000, 'error');
+      }
+    });
   }
 }

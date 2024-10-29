@@ -1,0 +1,79 @@
+<div class="workout-dialog-container">
+  <h5 mat-dialog-title style="font-weight: 500">
+    {{ this.data?.workout ? "Edit" : "Create" }} Workout
+  </h5>
+  <mat-divider></mat-divider>
+  <mat-dialog-content>
+    <form [formGroup]="workoutForm" (ngSubmit)="onSubmit()">
+      <mat-form-field class="mt-half" appearance="outline">
+        <mat-label>Type of Exercise</mat-label>
+        <mat-select formControlName="type">
+          @for (workoutType of data.workoutTypes; track workoutType) {
+          <mat-option [value]="workoutType._id">{{
+            workoutType.workoutTypeName
+          }}</mat-option>
+          }
+        </mat-select>
+
+        <mat-error *ngIf="getErrorMessage('type', workoutForm)">{{
+          getErrorMessage("type", workoutForm)
+        }}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="mt-half" appearance="outline">
+        <mat-label>Duration (in minutes)</mat-label>
+        <input
+          type="number"
+          formControlName="duration"
+          matInput
+          placeholder="Enter duration"
+        />
+        <mat-error *ngIf="getErrorMessage('duration', workoutForm)">{{
+          getErrorMessage("duration", workoutForm)
+        }}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="mt-half" appearance="outline">
+        <mat-label>Calories Burnt</mat-label>
+        <input
+          type="number"
+          formControlName="calories"
+          matInput
+          placeholder="Enter calories burnt"
+        />
+        <mat-error *ngIf="getErrorMessage('calories', workoutForm)">{{
+          getErrorMessage("calories", workoutForm)
+        }}</mat-error>
+      </mat-form-field>
+      <mat-form-field class="mt-half" appearance="outline">
+        <mat-label>Date of Workout</mat-label>
+        <input
+          matInput
+          [matDatepicker]="picker"
+          formControlName="date"
+          placeholder="Select date"
+        />
+        <mat-datepicker-toggle
+          matIconSuffix
+          [for]="picker"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="getErrorMessage('date', workoutForm)">
+          {{ getErrorMessage("date", workoutForm) }}
+        </mat-error>
+      </mat-form-field>
+    </form>
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+    <button mat-button (click)="onCancel()">Cancel</button>
+    <button
+      mat-button
+      type="submit"
+      [disabled]="workoutForm.invalid"
+      (click)="onSubmit()"
+    >
+      {{ this.data?.workout ? "Edit" : "Create" }}
+    </button>
+  </mat-dialog-actions>
+</div>

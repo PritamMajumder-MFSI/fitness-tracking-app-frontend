@@ -1,0 +1,17 @@
+.workout-dialog-container{
+    max-width: 40rem;
+    border-radius: 0%;
+    padding: 1rem;
+    width: fit-content;
+    mat-dialog-content{
+        width: fit-content;
+        form{
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            *{
+                width: 14rem;
+            }
+        }
+    }
+}
