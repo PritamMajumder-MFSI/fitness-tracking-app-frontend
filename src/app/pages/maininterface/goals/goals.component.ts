@@ -11,7 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { BackendService } from '../../../services/backend.service';
 import { lastValueFrom } from 'rxjs';
 import { ToastService } from '../../../services/toast.service';
-import { DatePipe } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { GoalDialogComponent } from '../../../dialogs/goal-dialog/goal-dialog.component';
 import { IGoal } from '../../../../models/Goal';
 import { FormatCamelCasePipe } from '../../../pipes/format-camel-case.pipe';
@@ -27,6 +27,7 @@ import { GoalDetailsComponent } from '../../../dialogs/goal-details/goal-details
     MatButton,
     DatePipe,
     FormatCamelCasePipe,
+    CommonModule,
   ],
   templateUrl: './goals.component.html',
   styleUrl: './goals.component.scss',
@@ -44,7 +45,7 @@ export class GoalsComponent {
   totalGoals = 0;
   pageSize = 5;
   pageIndex = 0;
-
+  isGridView = false;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(
@@ -59,11 +60,13 @@ export class GoalsComponent {
   async fetchGoals(page: number, limit: number) {
     try {
       const result = await lastValueFrom(
-        this.backendService.getApi<{ goals: IGoal[]; total: number }>(
+        this.backendService.getApi<{ goals: IGoal[]; totalGoals: number }>(
           `goal?page=${page + 1}&limit=${limit}`
         )
       );
       this.dataSource = result.data.goals;
+      this.totalGoals = result.data.totalGoals;
+      console.log(this.totalGoals);
     } catch (err) {
       this.toastService.add('Could not fetch goals', 3000, 'error');
     }
@@ -104,5 +107,8 @@ export class GoalsComponent {
     dialogRef.afterClosed().subscribe((result) => {
       console.log('Dialog closed', result);
     });
+  }
+  toggleView(): void {
+    this.isGridView = !this.isGridView;
   }
 }

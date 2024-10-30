@@ -1,4 +1,5 @@
 <router-outlet></router-outlet>
+
 <div class="toast-container">
   <div
     *ngFor="let toast of toastService.toasts; let i = index"
@@ -8,4 +9,8 @@
     {{ toast.message }}
     <button class="close-btn" (click)="removeToast(i)">X</button>
   </div>
+</div>
+
+<div *ngIf="loading" class="loading-container">
+  <img src="icons/spinner.svg" />
 </div>

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
@@ -13,6 +13,7 @@ import { AuthServiceService } from '../../services/auth-service.service';
   styleUrl: './sidenav.component.scss',
 })
 export class SidenavComponent {
+  @Output() public closeDrawerEvent = new EventEmitter<boolean>();
   constructor(private router: Router, public authService: AuthServiceService) {}
   public sidenavItems = [
     {
@@ -30,8 +31,17 @@ export class SidenavComponent {
       route: '/goals',
       icon: 'flag',
     },
+    {
+      title: 'Settings',
+      route: '/settings',
+      icon: 'settings',
+    },
   ];
   isActive(route: string): boolean {
     return this.router.url === route;
+  }
+  closeDrawer() {
+    console.log('emitting');
+    this.closeDrawerEvent.emit(true);
   }
 }

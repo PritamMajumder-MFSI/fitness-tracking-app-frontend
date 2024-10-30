@@ -1,40 +1,101 @@
 .workouts-container {
-    padding: 20px;
-    width: 100%;
-    height: 100%;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .view-toggle {
+    margin-top: 1rem;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    gap: 1rem;
+
+    .table-page-btn {
+      width: fit-content;
+      border-radius: 4px;
+    }
+
+    mat-icon {
+      cursor: pointer;
+      color: #005cbb;
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  .view-container {
     display: flex;
     flex-direction: column;
-    .title{
-        font-size: xx-large;
-    }
-    .table-page-btn{
-        margin-left: auto;
+    flex: 1;
+    margin-top: 1rem;
+
+    .table-wrapper {
+      flex: 1;
+      overflow: auto;
+      max-height: 65vh;
+
+      table {
         border-radius: 4px;
-        width: fit-content;
-    }
-    .table-wrapper{   
-        flex:1;
-        margin-top: 1rem;
-        table{
-            border-radius: 4px;
-            overflow: hidden;
-         
-            th{
-                background-color: #005cbb;
-                color: #faf9fd;
-            }
-            td{
-                border: none;
-            } tr{
-                &:hover{
-                    background:#aeccea2c;
-                }
-            }
-            mat-icon{
-                cursor:pointer;
-            }
+        overflow: hidden;
+        width: 100%;
+
+        th {
+          background-color: #005cbb;
+          color: #faf9fd;
         }
+
+        tr:hover {
+          background: #aeccea2c;
+        }
+
+        mat-icon {
+          cursor: pointer;
+        }
+      }
     }
-  
+
+    .grid-wrapper {
+      display: flex;
+      overflow: auto;
+      flex-direction: column;
+      max-height: 65vh;
+      flex: 1;
+      padding: 0.5rem;
+
+      .grid-cards-wrapper {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1rem;
+        margin-top: 1rem;
+
+        .workout-card {
+          display: flex;
+          flex-direction: column;
+          padding: 1rem;
+          border-radius: 12px;
+          background-color: #ffffff;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+          cursor: pointer;
+
+          &:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+          }
+
+          .workout-detail {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.25rem;
+            font-size: 1rem;
+            color: #444;
+
+            .anchor-span {
+              font-weight: bold;
+              color: #005cbb;
+            }
+          }
+        }
+      }
+    }
   }
-  
+}

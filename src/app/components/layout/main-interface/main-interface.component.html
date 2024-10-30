@@ -1,6 +1,29 @@
 <div class="outer-layout">
-  <app-sidenav class="sidenav"></app-sidenav>
+  <mat-drawer-container class="drawer-container" autosize>
+    <mat-drawer #drawer class="drawer-sidenav" mode="side">
+      <app-sidenav
+        class="sidenav"
+        (closeDrawerEvent)="drawer.close()"
+      ></app-sidenav>
+    </mat-drawer>
+  </mat-drawer-container>
+
+  <app-sidenav class="sidenav left-sidenav"></app-sidenav>
   <div class="content">
-    <router-outlet></router-outlet>
+    <div class="header">
+      <div class="text-container">
+        <span class="title">{{ getTitleSubtitle()?.title }}</span>
+        <span class="subtitle">{{ getTitleSubtitle()?.subtitle }}</span>
+      </div>
+      <div class="controls">
+        <mat-icon>notifications</mat-icon>
+        <mat-icon class="right-sidenav" (click)="drawer.toggle()"
+          >menu</mat-icon
+        >
+      </div>
+    </div>
+    <div class="outlet-container">
+      <router-outlet></router-outlet>
+    </div>
   </div>
 </div>

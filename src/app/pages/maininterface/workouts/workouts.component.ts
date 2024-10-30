@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IWorkout } from '../../../../models/Workout';
+import { IWorkout, IWorkoutWithWorkoutType } from '../../../../models/Workout';
 import {
   MatPaginator,
   MatPaginatorModule,
@@ -14,16 +14,27 @@ import { BackendService } from '../../../services/backend.service';
 import { lastValueFrom } from 'rxjs';
 import { ToastService } from '../../../services/toast.service';
 import { IWorkoutType } from '../../../../models/WorkoutTypes';
-import { DatePipe } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-workouts',
   standalone: true,
-  imports: [MatPaginatorModule, MatTableModule, MatIcon, MatButton, DatePipe],
+  imports: [
+    MatPaginatorModule,
+    CommonModule,
+    MatTableModule,
+    MatIcon,
+    MatButton,
+    DatePipe,
+  ],
   templateUrl: './workouts.component.html',
   styleUrl: './workouts.component.scss',
 })
 export class WorkoutsComponent implements OnInit {
+  isGridView = false;
+  toggleView() {
+    this.isGridView = !this.isGridView;
+  }
   displayedColumns: string[] = [
     'type',
     'duration',
@@ -31,7 +42,7 @@ export class WorkoutsComponent implements OnInit {
     'date',
     'actions',
   ];
-  dataSource: IWorkout[] = [];
+  dataSource: IWorkoutWithWorkoutType[] = [];
   workoutTypes: IWorkoutType[] = [];
 
   totalWorkouts = 0;
@@ -62,9 +73,10 @@ export class WorkoutsComponent implements OnInit {
   async fetchWorkouts(page: number, limit: number) {
     try {
       const result = await lastValueFrom(
-        this.backendService.getApi<{ workouts: IWorkout[]; total: number }>(
-          `workout?page=${page + 1}&limit=${limit}`
-        )
+        this.backendService.getApi<{
+          workouts: IWorkoutWithWorkoutType[];
+          total: number;
+        }>(`workout?page=${page + 1}&limit=${limit}`)
       );
       this.dataSource = result.data.workouts;
       this.totalWorkouts = result.data.total;

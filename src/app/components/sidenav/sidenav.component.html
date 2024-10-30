@@ -1,5 +1,9 @@
 <div class="outer-container">
-  <p class="title">TrackFit</p>
+  <mat-icon class="menu-icon" (click)="closeDrawer()">close</mat-icon>
+  <div class="top-container">
+    <img class="logo" src="icons/logo.png" />
+    <p class="title">TrackFit</p>
+  </div>
   <ul>
     <li
       [routerLink]="nav.route"
@@ -11,10 +15,7 @@
     </li>
   </ul>
   <div class="logout-btn">
-    <div class="logout-details">
-      <span class="elipssis">{{ authService.username }}</span>
-      <span class="elipssis">{{ authService.email }}</span>
-    </div>
+    <span>Logout</span>
     <mat-icon>logout</mat-icon>
   </div>
 </div>

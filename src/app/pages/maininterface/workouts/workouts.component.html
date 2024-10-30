@@ -1,54 +1,91 @@
 <div class="workouts-container">
-  <span class="title">Workouts</span>
-  <span class="subtitle">View all your workouts here</span>
-  <button class="mt-1 table-page-btn" mat-flat-button (click)="createWorkout()">
-    Add Workout
-  </button>
-  <div class="table-wrapper">
-    <table mat-table [dataSource]="dataSource" matSort>
-      <ng-container matColumnDef="type">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Type</th>
-        <td mat-cell *matCellDef="let workout">
-          {{ workout.workoutType[0].workoutTypeName }}
-        </td>
-      </ng-container>
-
-      <ng-container matColumnDef="duration">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Duration</th>
-        <td mat-cell *matCellDef="let workout">{{ workout.duration }}</td>
-      </ng-container>
-      <ng-container matColumnDef="calories">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Calories</th>
-        <td mat-cell *matCellDef="let workout">{{ workout.calories }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="date">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
-        <td mat-cell *matCellDef="let workout">
-          {{ workout.date | date : "dd/MM/yyyy" }}
-        </td>
-      </ng-container>
-      <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef>Actions</th>
-        <td mat-cell *matCellDef="let workout">
-          <mat-icon (click)="editWorkout(workout)">edit</mat-icon>
-          <mat-icon color="warn" (click)="deleteWorkout(workout._id)"
-            >delete</mat-icon
-          >
-        </td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-    </table>
+  <div class="view-toggle">
+    <mat-icon *ngIf="!isGridView" (click)="toggleView()">grid_on</mat-icon>
+    <mat-icon *ngIf="isGridView" (click)="toggleView()">table_rows</mat-icon>
+    <button
+      class="mt-1 table-page-btn"
+      mat-flat-button
+      (click)="createWorkout()"
+    >
+      Add Workout
+    </button>
   </div>
 
-  <mat-paginator
-    [length]="totalWorkouts"
-    [pageSize]="pageSize"
-    [pageIndex]="pageIndex"
-    [pageSizeOptions]="[5, 10, 20]"
-    (page)="onPageChange($event)"
-  >
-  </mat-paginator>
+  <div class="view-container">
+    <div *ngIf="!isGridView" class="table-wrapper">
+      <table mat-table [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="type">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Type</th>
+          <td mat-cell *matCellDef="let workout">
+            {{ workout.workoutType[0].workoutTypeName }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="duration">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Duration</th>
+          <td mat-cell *matCellDef="let workout">{{ workout.duration }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="calories">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Calories</th>
+          <td mat-cell *matCellDef="let workout">{{ workout.calories }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
+          <td mat-cell *matCellDef="let workout">
+            {{ workout.date | date : "dd/MM/yyyy" }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Actions</th>
+          <td mat-cell *matCellDef="let workout">
+            <mat-icon (click)="editWorkout(workout)">edit</mat-icon>
+            <mat-icon color="warn" (click)="deleteWorkout(workout._id)">
+              delete
+            </mat-icon>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+
+    <div *ngIf="isGridView" class="grid-wrapper">
+      <div class="grid-cards-wrapper">
+        <div
+          class="workout-card"
+          *ngFor="let workout of dataSource"
+          (click)="editWorkout(workout)"
+        >
+          <div class="workout-detail">
+            <span class="anchor-span">Type:</span>
+            {{ workout.workoutType[0].workoutTypeName }}
+          </div>
+          <div class="workout-detail">
+            <span class="anchor-span">Duration:</span>
+            {{ workout.duration }}
+          </div>
+          <div class="workout-detail">
+            <span class="anchor-span">Calories:</span>
+            {{ workout.calories }}
+          </div>
+          <div class="workout-detail">
+            <span class="anchor-span">Date:</span>
+            {{ workout.date | date : "dd/MM/yyyy" }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <mat-paginator
+      [length]="totalWorkouts"
+      [pageSize]="pageSize"
+      [pageIndex]="pageIndex"
+      [pageSizeOptions]="[5, 10, 20]"
+      (page)="onPageChange($event)"
+    ></mat-paginator>
+  </div>
 </div>
