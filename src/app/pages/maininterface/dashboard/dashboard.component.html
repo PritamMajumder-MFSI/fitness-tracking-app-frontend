@@ -1,1 +1,104 @@
-<div class="goals-container"></div>
+<div class="dashboard-container">
+  <div class="summary">
+    <div class="summary-item">
+      <span class="anchor-span">Total Workouts</span>
+      <span
+        class="title"
+        >{{ dashboardInfo?.workoutStats?.[0]?.totalWorkouts }}</span
+      >
+    </div>
+    <div class="summary-item">
+      <span class="anchor-span">Total Calories Burned</span>
+      <span class="title"
+        >{{ dashboardInfo?.workoutStats?.[0]?.totalCalories }} calories</span
+      >
+    </div>
+  </div>
+  <div>
+    <div class="activity-tracking">
+      <div class="chart-top">
+        <span class="title">Activity Tracking</span>
+        <div class="time-change">
+          <div>7 Days</div>
+          <div>1 month</div>
+          <div class="last-chart">1 year</div>
+        </div>
+      </div>
+      <div class="chart-container mt-1">
+        <div class="chart-wrapper">
+          <span class="anchor-span">Calories Burned</span>
+          <canvas #chartCalories></canvas>
+        </div>
+
+        <div class="chart-wrapper">
+          <span class="anchor-span">Workouts Done</span>
+          <canvas #chartWorkouts></canvas>
+        </div>
+
+        <div class="chart-wrapper">
+          <span class="anchor-span">Workout Types</span>
+          <canvas #chartTypes></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="table-wrapper">
+    <div class="table-info">
+      <span class="title">Recent fitness goals</span>
+      <a routerLink="/workouts" mat-flat-button>View all</a>
+    </div>
+    <table mat-table [dataSource]="dashboardInfo?.recentGoals || []" matSort>
+      <ng-container matColumnDef="goalType">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Type</th>
+        <td mat-cell *matCellDef="let goal">
+          {{ goal.goalType | formatCamelCase }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="targetValue">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Target Value</th>
+        <td mat-cell *matCellDef="let goal">{{ goal.targetValue }}</td>
+      </ng-container>
+      <ng-container matColumnDef="progress">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Progress</th>
+        <td mat-cell *matCellDef="let goal">
+          <mat-progress-bar
+            mode="determinate"
+            [value]="getValue(goal)"
+          ></mat-progress-bar>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="goalDisplayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: goalDisplayedColumns"></tr>
+    </table>
+  </div>
+
+  <div class="table-wrapper">
+    <div class="table-info">
+      <span class="title">Recent Workouts</span>
+      <a routerLink="/workouts" mat-flat-button>View all</a>
+    </div>
+
+    <table mat-table [dataSource]="dashboardInfo?.recentWorkouts || []" matSort>
+      <ng-container matColumnDef="type">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Type</th>
+        <td mat-cell *matCellDef="let workout">
+          {{ workout.type.workoutTypeName }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="duration">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Duration</th>
+        <td mat-cell *matCellDef="let workout">{{ workout.duration }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="calories">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Calories</th>
+        <td mat-cell *matCellDef="let workout">{{ workout.calories }}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="workoutDisplayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: workoutDisplayedColumns"></tr>
+    </table>
+  </div>
+</div>

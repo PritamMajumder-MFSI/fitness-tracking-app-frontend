@@ -1,6 +1,88 @@
-.goals-container {
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding-right: 2rem;
+  overflow-y: auto;
+  .activity-tracking {
+    margin-top: 2rem;
+    .chart-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      canvas {
+        max-height: 10rem;
+      }
+    }
+  }
+  .chart-top {
+    display: flex;
+    justify-content: space-between;
+    .time-change {
+      display: flex;
+      border: 2px solid #555555;
+      background-color: #faf9fd;
+      border-radius: 10rem;
+      font-size: small;
+      font-weight: 500;
+      div {
+        cursor: pointer;
+        padding: 0.5rem;
+        border-right: 2px solid #555555;
+      }
+      .last-chart {
+        border: 0px;
+      }
+    }
+  }
+  .title {
+    font-size: x-large;
+  }
+  .table-wrapper {
+    .table-info {
+      margin-bottom: 1rem;
+      display: flex;
+      justify-content: space-between;
+    }
     display: flex;
     flex-direction: column;
-    min-height: 100%;
+    margin: 1rem 0rem;
+    table {
+      border-radius: 4px;
+      overflow: hidden;
+      width: 100%;
+      th {
+        background-color: #005cbb;
+        color: #faf9fd;
+      }
 
+      tr:hover {
+        background: #aeccea2c;
+      }
+
+      mat-icon {
+        cursor: pointer;
+      }
+    }
+  }
+  .summary {
+    display: flex;
+    gap: 2rem;
+    margin-top: 1rem;
+    .summary-item {
+      display: flex;
+      flex-direction: column;
+      padding: 1.5rem;
+      gap: 1rem;
+      border-radius: 12px;
+      background-color: #ffffff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      }
+    }
+  }
 }
