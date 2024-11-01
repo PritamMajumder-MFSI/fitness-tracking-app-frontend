@@ -85,12 +85,12 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 ::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  background-color: var(--textColor);
+  background-color: var(--bgColor_2);
 }
 
 ::-webkit-scrollbar {
   width: 4px;
-  background-color: var(--textColor_2);
+  background-color: var(--bgColor_2);
 }
 
 ::-webkit-scrollbar-thumb {

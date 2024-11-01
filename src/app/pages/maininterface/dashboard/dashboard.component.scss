@@ -22,15 +22,15 @@
     .time-change {
       display: flex;
       border: 2px solid var(--textColor_3);
-      background-color: var(--bgColor_2);
+      background-color: var(--bgColor);
       border-radius: 10rem;
       font-size: small;
       font-weight: 500;
       overflow: hidden;
       div {
         cursor: pointer;
-        padding: 0.5rem;
-        border-right: 2px solid var(--textColor_3);
+        padding: 0.25rem;
+        border-right: 1px solid var(--textColor_3);
         &:hover {
           background-color: #aeccea2c;
         }
