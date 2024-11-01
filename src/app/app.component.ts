@@ -6,11 +6,17 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { HttpLoaderService } from './services/http-loader.service';
 import { delay } from 'rxjs/operators';
 import { ThemingService } from './services/theming.service';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CommonModule, MatProgressSpinnerModule],
+  imports: [
+    RouterOutlet,
+    CommonModule,
+    MatProgressSpinnerModule,
+    MatIconModule,
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })

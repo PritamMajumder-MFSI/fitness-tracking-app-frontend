@@ -7,7 +7,7 @@
     [ngClass]="toast.type"
   >
     {{ toast.message }}
-    <button class="close-btn" (click)="removeToast(i)">X</button>
+    <mat-icon (click)="removeToast(i)" class="close-btn">close</mat-icon>
   </div>
 </div>
 
