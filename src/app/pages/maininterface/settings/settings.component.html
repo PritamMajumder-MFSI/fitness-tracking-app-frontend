@@ -1,0 +1,31 @@
+<div class="settings-container">
+  <form [formGroup]="settingsForm" (ngSubmit)="saveUserDetails()">
+    <mat-form-field class="mt-half" appearance="outline">
+      <mat-label>Date format</mat-label>
+      <mat-select formControlName="dateFormat">
+        @for (dateFormat of dateFormats;track dateFormat) {
+        <mat-option [value]="dateFormat.value">{{
+          dateFormat.displayName
+        }}</mat-option>
+        }
+      </mat-select>
+
+      <mat-error *ngIf="getErrorMessage('dateFormat', settingsForm)">{{
+        getErrorMessage("dateFormat", settingsForm)
+      }}</mat-error>
+    </mat-form-field>
+    <mat-form-field class="mt-half" appearance="outline">
+      <mat-label>Theme</mat-label>
+      <mat-select formControlName="theme">
+        @for (theme of themes;track theme) {
+        <mat-option [value]="theme">{{ theme | formatCamelCase }}</mat-option>
+        }
+      </mat-select>
+
+      <mat-error *ngIf="getErrorMessage('goalType', settingsForm)">{{
+        getErrorMessage("goalType", settingsForm)
+      }}</mat-error>
+    </mat-form-field>
+    <button mat-flat-button>Save</button>
+  </form>
+</div>

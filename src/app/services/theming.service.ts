@@ -26,15 +26,9 @@ export class ThemingService {
   }
   public updateCurrentMode(mode: Mode) {
     localStorage.setItem('theme', mode);
+    this.currentMode = mode;
     document.body.classList.remove('light');
     document.body.classList.remove('dark');
     document.body.classList.add(this.currentMode);
-  }
-  public toggleMode() {
-    if (this.currentMode === this.mode['DARK']) {
-      this.updateCurrentMode(this.mode['LIGHT']);
-    } else {
-      this.updateCurrentMode(this.mode['DARK']);
-    }
   }
 }

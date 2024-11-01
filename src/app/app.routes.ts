@@ -9,6 +9,7 @@ import { WorkoutsComponent } from './pages/maininterface/workouts/workouts.compo
 import { GoalsComponent } from './pages/maininterface/goals/goals.component';
 import { MainInterfaceComponent } from './components/layout/main-interface/main-interface.component';
 import { authGuardFn } from './guards/auth.guard';
+import { SettingsComponent } from './pages/maininterface/settings/settings.component';
 
 export const routes: Routes = [
   {
@@ -45,6 +46,10 @@ export const routes: Routes = [
       {
         path: 'goals',
         component: GoalsComponent,
+      },
+      {
+        path: 'settings',
+        component: SettingsComponent,
       },
     ],
   },
