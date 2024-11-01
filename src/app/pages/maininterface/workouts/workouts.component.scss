@@ -43,7 +43,9 @@
           background-color: #005cbb;
           color: #faf9fd;
         }
-
+        .mat-mdc-cell {
+          border: 0px !important;
+        }
         tr:hover {
           background: #aeccea2c;
         }

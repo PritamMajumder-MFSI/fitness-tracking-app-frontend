@@ -20,15 +20,15 @@
     justify-content: space-between;
     .time-change {
       display: flex;
-      border: 2px solid #555555;
-      background-color: #faf9fd;
+      border: 2px solid var(--textColor_3);
+      background-color: var(--bgColor_2);
       border-radius: 10rem;
       font-size: small;
       font-weight: 500;
       div {
         cursor: pointer;
         padding: 0.5rem;
-        border-right: 2px solid #555555;
+        border-right: 2px solid var(--textColor_3);
       }
       .last-chart {
         border: 0px;
@@ -56,6 +56,10 @@
         color: #faf9fd;
       }
 
+      .mat-mdc-cell {
+        border: 0px !important;
+      }
+      border: 0px !important;
       tr:hover {
         background: #aeccea2c;
       }
@@ -75,7 +79,7 @@
       padding: 1.5rem;
       gap: 1rem;
       border-radius: 12px;
-      background-color: #ffffff;
+      background-color: var(--bgColor_2);
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
 

@@ -1,32 +1,33 @@
-.outer-form{
+.outer-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-height: 100vh;
+  * {
+    width: 80%;
+    max-width: 25rem;
+  }
+  .google-logo {
+    cursor: pointer;
     display: flex;
-    flex-direction: column;
+    border: 2px solid var(--textColor_2);
+    border-radius: 20px;
     align-items: center;
     justify-content: center;
-    max-height: 100vh;
-    *{
-        width: 80%;
-        max-width: 25rem;
+    background: transparent;
+
+    img {
+      height: 32px;
+      width: 32px;
     }
-    .google-logo{
-        cursor:pointer;
-        display: flex;
-        border: 2px solid #005cbb;
-        border-radius: 20px;
-        align-items: center;
-        justify-content: center;
-        background: transparent;
-       
-        img{
-            height: 32px;
-            width: 32px;
-        }
-        span{
-            color: #005cbb;
-            width: fit-content;
-            font-weight: 600;
-        } &:hover{
-            background:#aeccea2c;
-        }
+    span {
+      color: var(--textColor_2);
+      width: fit-content;
+      font-weight: 600;
     }
+    &:hover {
+      background: #aeccea2c;
+    }
+  }
 }
