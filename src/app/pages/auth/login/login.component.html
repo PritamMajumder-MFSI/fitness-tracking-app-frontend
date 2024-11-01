@@ -1,6 +1,6 @@
 <app-auth-layout>
   <form class="outer-form" [formGroup]="loginFormGroup" (ngSubmit)="login()">
-    <h5>Welcome to Fitness Tracker</h5>
+    <h5 style="font-weight: 600">Welcome to TrackFit</h5>
 
     <mat-form-field appearance="outline">
       <mat-label>Email</mat-label>
@@ -37,7 +37,7 @@
     <a class="mt-1 anchor-span" routerLink="/auth/forgot-password"
       >Forgot password?</a
     >
-    <button class="google-logo mt-1" type="button">
+    <button class="google-logo mt-1" (click)="googleSignIn()" type="button">
       <img src="icons/google_logo.svg" />
       <span>Sign in with google</span>
     </button>

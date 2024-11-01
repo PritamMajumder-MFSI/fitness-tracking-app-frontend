@@ -4,13 +4,13 @@
       <span class="anchor-span">Total Workouts</span>
       <span
         class="title"
-        >{{ dashboardInfo?.workoutStats?.[0]?.totalWorkouts }}</span
+        >{{ dashboardInfo?.workoutStats?.[0]?.totalWorkouts ||0}}</span
       >
     </div>
     <div class="summary-item">
       <span class="anchor-span">Total Calories Burned</span>
       <span class="title"
-        >{{ dashboardInfo?.workoutStats?.[0]?.totalCalories }} calories</span
+        >{{ dashboardInfo?.workoutStats?.[0]?.totalCalories||0 }} calories</span
       >
     </div>
   </div>

@@ -78,4 +78,8 @@ export class LoginComponent {
     controlName: string,
     form: FormGroup
   ) => string | null = getErrorMessage;
+  async googleSignIn() {
+    window.location.href =
+      'http://localhost:3000/api/v1/auth/googleAuth?action=SIGN_IN';
+  }
 }
