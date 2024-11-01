@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { Chart, registerables } from 'chart.js';
+import { MatDividerModule } from '@angular/material/divider';
 
 Chart.register(...registerables);
 
@@ -19,6 +20,7 @@ Chart.register(...registerables);
     CommonModule,
     MatTableModule,
     FormatCamelCasePipe,
+    MatDividerModule,
     RouterLink,
     MatProgressBarModule,
     MatButtonModule,
@@ -34,7 +36,10 @@ export class DashboardComponent {
   dashboardInfo: IDashboardResponse | undefined;
   goalDisplayedColumns: string[] = ['goalType', 'targetValue', 'progress'];
   workoutDisplayedColumns: string[] = ['type', 'duration', 'calories'];
-
+  days: number = 7;
+  caloriesChart: Chart | undefined;
+  workoutsChart: Chart | undefined;
+  typesChart: any;
   @ViewChild('chartCalories') chartCaloriesRef!: ElementRef;
   @ViewChild('chartWorkouts') chartWorkoutsRef!: ElementRef;
   @ViewChild('chartTypes') chartTypesRef!: ElementRef;
@@ -48,22 +53,19 @@ export class DashboardComponent {
 
   ngOnInit() {
     this.getDashboardInfo();
-    this.getDashboardInfoByDate();
+    this.getDashboardInfoByDay(this.days);
   }
   async getDashboardInfo() {
     const result = await lastValueFrom(
-      this.backendService.getApi<any>('dashboard/get-info', {
-        days: '7',
-      })
+      this.backendService.getApi<any>('dashboard/get-info')
     );
     this.dashboardInfo = result.data;
-    this.createCharts(result.data);
   }
 
-  async getDashboardInfoByDate() {
+  async getDashboardInfoByDay(days: number) {
     const result = await lastValueFrom(
       this.backendService.getApi<any>('dashboard/get-info-by-date', {
-        days: '7',
+        days: String(days),
       })
     );
     this.createCharts(result.data);
@@ -90,7 +92,10 @@ export class DashboardComponent {
   }
 
   createCaloriesChart(labels: string[], calories: number[]): void {
-    new Chart(this.chartCaloriesRef.nativeElement, {
+    if (this.caloriesChart) {
+      this.caloriesChart.destroy();
+    }
+    this.caloriesChart = new Chart(this.chartCaloriesRef.nativeElement, {
       type: 'line',
       data: {
         labels: labels,
@@ -107,12 +112,20 @@ export class DashboardComponent {
       options: {
         responsive: true,
         maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: false,
+          },
+        },
       },
     });
   }
 
   createWorkoutsChart(labels: string[], workouts: number[]): void {
-    new Chart(this.chartWorkoutsRef.nativeElement, {
+    if (this.workoutsChart) {
+      this.workoutsChart.destroy();
+    }
+    this.workoutsChart = new Chart(this.chartWorkoutsRef.nativeElement, {
       type: 'bar',
       data: {
         labels: labels,
@@ -128,12 +141,20 @@ export class DashboardComponent {
       options: {
         responsive: true,
         maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: false,
+          },
+        },
       },
     });
   }
 
   createTypesChart(workoutTypes: { type: string; count: number }[]): void {
-    new Chart(this.chartTypesRef.nativeElement, {
+    if (this.typesChart) {
+      this.typesChart.destroy();
+    }
+    this.typesChart = new Chart(this.chartTypesRef.nativeElement, {
       type: 'pie',
       data: {
         labels: workoutTypes.map((w) => w.type),
@@ -147,6 +168,11 @@ export class DashboardComponent {
       options: {
         responsive: true,
         maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: false,
+          },
+        },
       },
     });
   }
@@ -157,5 +183,9 @@ export class DashboardComponent {
     } else {
       return (goal.totalCalories / goal.targetValue) * 100;
     }
+  }
+  fetchData(days: number) {
+    this.days = days;
+    this.getDashboardInfoByDay(days);
   }
 }

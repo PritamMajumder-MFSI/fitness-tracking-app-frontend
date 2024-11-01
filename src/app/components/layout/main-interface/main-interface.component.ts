@@ -3,12 +3,19 @@ import { SidenavComponent } from '../../sidenav/sidenav.component';
 import { Router, RouterOutlet } from '@angular/router';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { AuthServiceService } from '../../../services/auth-service.service';
-import { MatIcon } from '@angular/material/icon';
+import { MatIcon, MatIconModule } from '@angular/material/icon';
+import { MatDividerModule } from '@angular/material/divider';
 
 @Component({
   selector: 'app-main-interface',
   standalone: true,
-  imports: [SidenavComponent, RouterOutlet, MatSidenavModule, MatIcon],
+  imports: [
+    SidenavComponent,
+    RouterOutlet,
+    MatSidenavModule,
+    MatIconModule,
+    MatDividerModule,
+  ],
   templateUrl: './main-interface.component.html',
   styleUrl: './main-interface.component.scss',
 })

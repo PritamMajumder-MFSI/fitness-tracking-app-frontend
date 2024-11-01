@@ -1,6 +1,6 @@
 <div class="outer-layout">
   <mat-drawer-container class="drawer-container" autosize>
-    <mat-drawer #drawer class="drawer-sidenav" mode="side">
+    <mat-drawer #drawer class="drawer-sidenav" mode="side" [opened]="false">
       <app-sidenav
         class="sidenav"
         (closeDrawerEvent)="drawer.close()"

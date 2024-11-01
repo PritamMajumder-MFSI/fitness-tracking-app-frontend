@@ -13,6 +13,7 @@ import { FormatCamelCasePipe } from '../../../pipes/format-camel-case.pipe';
 import { MatButtonModule } from '@angular/material/button';
 import { ToastService } from '../../../services/toast.service';
 import { ThemingService } from '../../../services/theming.service';
+import { CommonModule } from '@angular/common';
 type Mode = 'dark' | 'light';
 @Component({
   selector: 'app-settings',
@@ -22,6 +23,7 @@ type Mode = 'dark' | 'light';
     ReactiveFormsModule,
     MatSelectModule,
     FormatCamelCasePipe,
+    CommonModule,
   ],
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.scss',

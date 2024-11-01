@@ -18,14 +18,17 @@ export const routes: Routes = [
       {
         path: 'login',
         component: LoginComponent,
+        title: 'TrackFit | Login',
       },
       {
         path: 'sign-up',
         component: SignupComponent,
+        title: 'TrackFit | Sign Up',
       },
       {
         path: 'forgot-password',
         component: ForgotPasswordComponent,
+        title: 'TrackFit | Forgot Password',
       },
     ],
   },
@@ -38,18 +41,22 @@ export const routes: Routes = [
         path: '',
         pathMatch: 'full',
         component: DashboardComponent,
+        title: 'TrackFit',
       },
       {
         path: 'workouts',
         component: WorkoutsComponent,
+        title: 'TrackFit | Workouts',
       },
       {
         path: 'goals',
         component: GoalsComponent,
+        title: 'TrackFit | Goals',
       },
       {
         path: 'settings',
         component: SettingsComponent,
+        title: 'TrackFit | Settings',
       },
     ],
   },

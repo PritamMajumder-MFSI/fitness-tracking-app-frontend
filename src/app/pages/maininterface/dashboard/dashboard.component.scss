@@ -1,17 +1,18 @@
 .dashboard-container {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 100%;
   padding-right: 2rem;
-  overflow-y: auto;
+  overflow: auto;
   .activity-tracking {
     margin-top: 2rem;
     .chart-container {
       display: flex;
       flex-wrap: wrap;
+      gap: 2rem;
       justify-content: center;
       canvas {
-        max-height: 10rem;
+        max-height: 20rem;
       }
     }
   }
@@ -25,10 +26,17 @@
       border-radius: 10rem;
       font-size: small;
       font-weight: 500;
+      overflow: hidden;
       div {
         cursor: pointer;
         padding: 0.5rem;
         border-right: 2px solid var(--textColor_3);
+        &:hover {
+          background-color: #aeccea2c;
+        }
+      }
+      .active {
+        background-color: #aeccea2c;
       }
       .last-chart {
         border: 0px;

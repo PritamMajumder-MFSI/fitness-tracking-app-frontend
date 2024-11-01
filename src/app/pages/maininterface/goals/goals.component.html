@@ -26,14 +26,14 @@
         <ng-container matColumnDef="from">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>From</th>
           <td mat-cell *matCellDef="let goal">
-            {{ goal.from | date : "dd/MM/yyyy" }}
+            {{ goal.from | date : dateFormat }}
           </td>
         </ng-container>
 
         <ng-container matColumnDef="to">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>To</th>
           <td mat-cell *matCellDef="let goal">
-            {{ goal.to | date : "dd/MM/yyyy" }}
+            {{ goal.to | date : "MM/dd/yyyy" }}
           </td>
         </ng-container>
 
@@ -64,11 +64,11 @@
           </div>
           <div class="goal-detail">
             <span class="anchor-span">From:</span>
-            {{ goal.from | date : "dd/MM/yyyy" }}
+            {{ goal.from | date : dateFormat }}
           </div>
           <div class="goal-detail">
             <span class="anchor-span">To:</span>
-            {{ goal.to | date : "dd/MM/yyyy" }}
+            {{ goal.to | date : dateFormat }}
           </div>
         </div>
       </div>

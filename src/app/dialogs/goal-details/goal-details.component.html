@@ -12,17 +12,17 @@
     </div>
     <div class>
       <span class="title">From: </span
-      ><span>{{ this.data.goal.from | date : "dd/MM/yyyy" }}</span>
+      ><span>{{ this.data.goal.from | date : dateFormat }}</span>
     </div>
     <div class>
       <span class="title">To: </span
-      ><span>{{ this.data.goal.to | date : "dd/MM/yyyy" }}</span>
+      ><span>{{ this.data.goal.to | date : dateFormat }}</span>
     </div>
   </div>
 
   <div mat-dialog-content class="chart-container">
     <div class="chart-wrapper">
-      <span class="title">Calories nurned</span>
+      <span class="title">Calories burned</span>
       <canvas #chartCalories></canvas>
     </div>
 

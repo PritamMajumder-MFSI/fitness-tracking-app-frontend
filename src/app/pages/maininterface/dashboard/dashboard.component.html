@@ -19,9 +19,19 @@
       <div class="chart-top">
         <span class="title">Activity Tracking</span>
         <div class="time-change">
-          <div>7 Days</div>
-          <div>1 month</div>
-          <div class="last-chart">1 year</div>
+          <div (click)="fetchData(7)" [ngClass]="{ active: days == 7 }">
+            7 Days
+          </div>
+          <div (click)="fetchData(31)" [ngClass]="{ active: days == 31 }">
+            1 month
+          </div>
+          <div
+            class="last-chart"
+            (click)="fetchData(365)"
+            [ngClass]="{ active: days == 365 }"
+          >
+            1 year
+          </div>
         </div>
       </div>
       <div class="chart-container mt-1">

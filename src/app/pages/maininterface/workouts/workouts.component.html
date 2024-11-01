@@ -34,7 +34,7 @@
         <ng-container matColumnDef="date">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
           <td mat-cell *matCellDef="let workout">
-            {{ workout.date | date : "dd/MM/yyyy" }}
+            {{ workout.date | date : dateFormat }}
           </td>
         </ng-container>
 
@@ -74,7 +74,7 @@
           </div>
           <div class="workout-detail">
             <span class="anchor-span">Date:</span>
-            {{ workout.date | date : "dd/MM/yyyy" }}
+            {{ workout.date | date : dateFormat }}
           </div>
         </div>
       </div>

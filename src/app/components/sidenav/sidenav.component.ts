@@ -4,6 +4,8 @@ import { MatIcon } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
 import { AuthServiceService } from '../../services/auth-service.service';
+import { BackendService } from '../../services/backend.service';
+import { lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-sidenav',
@@ -14,7 +16,11 @@ import { AuthServiceService } from '../../services/auth-service.service';
 })
 export class SidenavComponent {
   @Output() public closeDrawerEvent = new EventEmitter<boolean>();
-  constructor(private router: Router, public authService: AuthServiceService) {}
+  constructor(
+    private router: Router,
+    public authService: AuthServiceService,
+    private backendService: BackendService
+  ) {}
   public sidenavItems = [
     {
       title: 'Dashboard',
@@ -43,5 +49,9 @@ export class SidenavComponent {
   closeDrawer() {
     console.log('emitting');
     this.closeDrawerEvent.emit(true);
+  }
+  async logout() {
+    await lastValueFrom(this.backendService.getApi('auth/logout'));
+    this.router.navigate(['auth/login']);
   }
 }

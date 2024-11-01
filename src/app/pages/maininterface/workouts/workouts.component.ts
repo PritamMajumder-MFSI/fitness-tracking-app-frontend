@@ -1,4 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  inject,
+  OnInit,
+  PLATFORM_ID,
+  ViewChild,
+} from '@angular/core';
 import { IWorkout, IWorkoutWithWorkoutType } from '../../../../models/Workout';
 import {
   MatPaginator,
@@ -14,7 +20,7 @@ import { BackendService } from '../../../services/backend.service';
 import { lastValueFrom } from 'rxjs';
 import { ToastService } from '../../../services/toast.service';
 import { IWorkoutType } from '../../../../models/WorkoutTypes';
-import { CommonModule, DatePipe } from '@angular/common';
+import { CommonModule, DatePipe, isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-workouts',
@@ -48,14 +54,24 @@ export class WorkoutsComponent implements OnInit {
   totalWorkouts = 0;
   pageSize = 5;
   pageIndex = 0;
-
+  dateFormat: string = 'dd/MM/yyyy';
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
+  private readonly platform = inject(PLATFORM_ID);
   constructor(
     private dialog: MatDialog,
     private backendService: BackendService,
     private toastService: ToastService
-  ) {}
+  ) {
+    if (isPlatformBrowser(this.platform)) {
+      const storedFormat = localStorage.getItem('dateFormat');
+      if (storedFormat == '2') {
+        this.dateFormat = 'MM/dd/yyyy';
+      } else {
+        this.dateFormat = 'dd/MM/yyyy';
+      }
+    }
+  }
   ngOnInit() {
     this.fetchWorkouts(this.pageIndex, this.pageSize);
     this.fetchWorkoutTypes();

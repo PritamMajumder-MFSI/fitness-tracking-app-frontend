@@ -1,5 +1,12 @@
-import { DatePipe } from '@angular/common';
-import { Component, ElementRef, Inject, ViewChild } from '@angular/core';
+import { DatePipe, isPlatformBrowser } from '@angular/common';
+import {
+  Component,
+  ElementRef,
+  inject,
+  Inject,
+  PLATFORM_ID,
+  ViewChild,
+} from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatDivider } from '@angular/material/divider';
@@ -28,10 +35,22 @@ export class GoalDetailsComponent {
   chartTypes: any;
   chartProgress: any;
 
+  dateFormat: string = 'dd/MM/yyyy';
+
+  private readonly platform = inject(PLATFORM_ID);
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<GoalDetailsComponent>
-  ) {}
+  ) {
+    if (isPlatformBrowser(this.platform)) {
+      const storedFormat = localStorage.getItem('dateFormat');
+      if (storedFormat == '2') {
+        this.dateFormat = 'MM/dd/yyyy';
+      } else {
+        this.dateFormat = 'dd/MM/yyyy';
+      }
+    }
+  }
 
   ngOnInit(): void {
     setTimeout(() => {
@@ -149,6 +168,11 @@ export class GoalDetailsComponent {
       options: {
         responsive: true,
         maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: false,
+          },
+        },
       },
     });
   }
@@ -170,6 +194,11 @@ export class GoalDetailsComponent {
       options: {
         responsive: true,
         maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: false,
+          },
+        },
       },
     });
   }
@@ -189,6 +218,11 @@ export class GoalDetailsComponent {
       options: {
         responsive: true,
         maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: false,
+          },
+        },
       },
     });
   }
@@ -208,6 +242,11 @@ export class GoalDetailsComponent {
       options: {
         responsive: true,
         maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: false,
+          },
+        },
       },
     });
   }
