@@ -15,6 +15,6 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(),
     provideAnimationsAsync(),
     provideHttpClient(withInterceptors([httpInterceptor])),
-    provideNativeDateAdapter(),
+    provideNativeDateAdapter(), provideAnimationsAsync(),
   ],
 };

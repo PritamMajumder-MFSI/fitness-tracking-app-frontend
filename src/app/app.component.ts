@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { HttpLoaderService } from './services/http-loader.service';
 import { delay } from 'rxjs/operators';
+import { ThemingService } from './services/theming.service';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +20,8 @@ export class AppComponent {
 
   constructor(
     public toastService: ToastService,
-    private _loading: HttpLoaderService
+    private _loading: HttpLoaderService,
+    private themingService: ThemingService
   ) {}
   ngOnInit() {
     this.listenToLoading();
@@ -31,10 +33,8 @@ export class AppComponent {
     this.toastService.remove(index);
   }
   listenToLoading(): void {
-    this._loading.loadingSub
-      .pipe(delay(0)) // This prevents a ExpressionChangedAfterItHasBeenCheckedError for subsequent requests
-      .subscribe((loading) => {
-        this.loading = loading;
-      });
+    this._loading.loadingSub.pipe(delay(0)).subscribe((loading) => {
+      this.loading = loading;
+    });
   }
 }
