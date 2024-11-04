@@ -57,7 +57,9 @@ export class DashboardComponent {
   }
   async getDashboardInfo() {
     const result = await lastValueFrom(
-      this.backendService.getApi<any>('dashboard/get-info')
+      this.backendService.getApi<IDashboardResponse | undefined>(
+        'dashboard/get-info'
+      )
     );
     this.dashboardInfo = result.data;
   }

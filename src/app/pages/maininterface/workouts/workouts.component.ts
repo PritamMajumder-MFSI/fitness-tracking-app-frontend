@@ -110,7 +110,7 @@ export class WorkoutsComponent implements OnInit {
     let dialogRef = this.dialog.open(WorkoutDialogComponent, {
       data: { workoutTypes: this.workoutTypes, workout },
     });
-    dialogRef.afterClosed().subscribe(async (result) => {
+    dialogRef.afterClosed().subscribe(async (result: IWorkout) => {
       if (!result) return;
       try {
         await lastValueFrom(

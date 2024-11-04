@@ -64,7 +64,7 @@ export class SettingsComponent implements OnInit {
     });
   }
   saveUserDetails() {
-    if (this.settingsForm.invalid) {
+    if (!this.settingsForm.valid) {
       this.toast.add(
         'Please make sure all the inputs are valid!',
         3000,

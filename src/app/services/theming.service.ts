@@ -25,7 +25,6 @@ export class ThemingService {
     this.updateCurrentMode(initMode as Mode);
   }
   public updateCurrentMode(mode: Mode) {
-    localStorage.setItem('theme', mode);
     this.currentMode = mode;
     document.body.classList.remove('light');
     document.body.classList.remove('dark');
