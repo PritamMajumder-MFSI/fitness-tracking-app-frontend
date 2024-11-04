@@ -31,6 +31,7 @@ export class AppComponent {
   ) {}
   ngOnInit() {
     this.listenToLoading();
+    console.log(this.themingService.currentMode);
   }
   showToast() {
     this.toastService.add('This is a toast message.');
