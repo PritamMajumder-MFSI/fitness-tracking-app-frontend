@@ -15,7 +15,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatDivider } from '@angular/material/divider';
 import { Chart, registerables, ChartConfiguration } from 'chart.js';
 import { FormatCamelCasePipe } from '../../pipes/format-camel-case.pipe';
-import { IWorkoutWithType } from '../../../models/Goal';
+import { IGoal, IWorkoutWithType } from '../../../models/Goal';
 
 Chart.register(...registerables);
 
@@ -41,15 +41,10 @@ export class GoalDetailsComponent implements AfterViewInit, OnDestroy {
   dateFormat = 'dd/MM/yyyy';
 
   private readonly platform = inject(PLATFORM_ID);
+
   constructor(
     @Inject(MAT_DIALOG_DATA)
-    public data: {
-      goal: {
-        workouts: IWorkoutWithType[];
-        targetValue: number;
-        goalType: string;
-      };
-    },
+    public data: { goal: IGoal },
     public dialogRef: MatDialogRef<GoalDetailsComponent>
   ) {
     if (isPlatformBrowser(this.platform)) {

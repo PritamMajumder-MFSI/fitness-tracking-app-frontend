@@ -70,18 +70,13 @@ describe('GoalDetailsComponent', () => {
     };
     component.createCaloriesChart(['01 Nov', '02 Nov'], [800, 250]);
     expect(component.chartCalories).toBeDefined();
-    expect(component.chartCalories.data.labels).toEqual(['01 Nov', '02 Nov']);
-    expect(component.chartCalories.data.datasets[0].data).toEqual([800, 250]);
+    expect(component.chartCalories?.data.labels).toEqual(['01 Nov', '02 Nov']);
+    expect(component.chartCalories?.data.datasets[0].data).toEqual([800, 250]);
   });
 
   it('should handle ngOnDestroy', () => {
-    component.chartCalories = {
-      destroy: () => {
-        console.log('destroy');
-      },
-    };
-    spyOn(component.chartCalories, 'destroy');
+    spyOn(component.chartCalories!, 'destroy');
     component.ngOnDestroy();
-    expect(component.chartCalories.destroy).toHaveBeenCalled();
+    expect(component.chartCalories?.destroy).toHaveBeenCalled();
   });
 });

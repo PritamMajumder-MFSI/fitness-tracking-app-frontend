@@ -4,6 +4,7 @@ import {
   ElementRef,
   ViewChild,
   OnInit,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { BackendService } from '../../../services/backend.service';
 import { CommonModule } from '@angular/common';
@@ -16,7 +17,7 @@ import { RouterLink } from '@angular/router';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { Chart, registerables } from 'chart.js';
 import { MatDividerModule } from '@angular/material/divider';
-import { IWorkout } from '../../../../models/Workout';
+import { IWorkout, WorkoutSummaryByDay } from '../../../../models/Workout';
 import { IGoal } from '../../../../models/Goal';
 
 Chart.register(...registerables);
@@ -46,14 +47,17 @@ export class DashboardComponent implements OnInit {
   goalDisplayedColumns: string[] = ['goalType', 'targetValue', 'progress'];
   workoutDisplayedColumns: string[] = ['type', 'duration', 'calories'];
   days = 7;
-  caloriesChart: Chart | undefined;
-  workoutsChart: Chart | undefined;
-  typesChart: any;
+  caloriesChart?: Chart<'line', number[], string>;
+  workoutsChart?: Chart<'bar', number[], string>;
+  typesChart?: Chart<'pie', number[], string>;
   @ViewChild('chartCalories') chartCaloriesRef!: ElementRef;
   @ViewChild('chartWorkouts') chartWorkoutsRef!: ElementRef;
   @ViewChild('chartTypes') chartTypesRef!: ElementRef;
 
-  constructor(private backendService: BackendService) {}
+  constructor(
+    private backendService: BackendService,
+    private cd: ChangeDetectorRef
+  ) {}
 
   ngOnInit() {
     this.getDashboardInfo();
@@ -66,18 +70,23 @@ export class DashboardComponent implements OnInit {
       )
     );
     this.dashboardInfo = result.data;
+    this.cd.detectChanges();
   }
 
   async getDashboardInfoByDay(days: number) {
     const result = await lastValueFrom(
-      this.backendService.getApi<any>('dashboard/get-info-by-date', {
-        days: String(days),
-      })
+      this.backendService.getApi<WorkoutSummaryByDay>(
+        'dashboard/get-info-by-date',
+        {
+          days: String(days),
+        }
+      )
     );
     this.createCharts(result.data);
+    this.cd.detectChanges();
   }
 
-  createCharts(data: any[]) {
+  createCharts(data: WorkoutSummaryByDay) {
     const labels = data.map((day) => day.label);
     const caloriesData = data.map((day) => day.totalCalories);
     const workoutsData = data.map((day) => day.totalWorkouts);
@@ -87,7 +96,9 @@ export class DashboardComponent implements OnInit {
     this.createTypesChart(workoutTypesData);
   }
 
-  getWorkoutsByType(data: any[]): { type: string; count: number }[] {
+  getWorkoutsByType(
+    data: WorkoutSummaryByDay
+  ): { type: string; count: number }[] {
     const typesMap = new Map<string, number>();
     data.forEach((day) => {
       day.workoutTypes.forEach((type: string) => {

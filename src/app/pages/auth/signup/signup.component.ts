@@ -92,9 +92,14 @@ export class SignupComponent {
     delete payload.confirmPassword;
 
     try {
+      console.log(payload);
       const response = await lastValueFrom(
-        this._backendService.postApiCall<any, any>('auth/sign-up', payload)
+        this._backendService.postApiCall<
+          { user: { email: string; username: string } },
+          { username: string; password: string; email: string }
+        >('auth/sign-up', payload)
       );
+      console.log('signup->', response);
       this.toastService.add('Account creation successful', 3000, 'success');
       this.router.navigate(['/auth/login']);
       console.log(response);

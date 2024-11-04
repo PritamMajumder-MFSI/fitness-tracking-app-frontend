@@ -1,7 +1,5 @@
 <div class="goal-dialog-container">
-  <h5 mat-dialog-title style="font-weight: 500">
-    {{ this.data?.goal ? "Edit" : "Create" }} Goal
-  </h5>
+  <h5 mat-dialog-title style="font-weight: 500">Create Goal</h5>
   <mat-divider></mat-divider>
   <mat-dialog-content>
     <form [formGroup]="goalForm" (ngSubmit)="onSubmit()">
@@ -80,7 +78,7 @@
       [disabled]="goalForm.invalid"
       (click)="onSubmit()"
     >
-      {{ this.data?.goal ? "Edit" : "Create" }}
+      Create
     </button>
   </mat-dialog-actions>
 </div>

@@ -5,6 +5,7 @@ import { BackendService } from '../../../services/backend.service';
 import { provideRouter } from '@angular/router';
 import { routes } from '../../../app.routes';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { WorkoutSummaryByDay } from '../../../../models/Workout';
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;
@@ -73,9 +74,19 @@ describe('DashboardComponent', () => {
   });
 
   it('should calculate workout types from data correctly', () => {
-    const mockData = [
-      { workoutTypes: ['Cardio', 'Strength'] },
-      { workoutTypes: ['Cardio', 'Flexibility'] },
+    const mockData: WorkoutSummaryByDay = [
+      {
+        workoutTypes: ['Cardio', 'Strength'],
+        label: '',
+        totalCalories: 0,
+        totalWorkouts: 0,
+      },
+      {
+        workoutTypes: ['Cardio', 'Flexibility'],
+        label: '',
+        totalCalories: 0,
+        totalWorkouts: 0,
+      },
     ];
     const workoutTypes = component.getWorkoutsByType(mockData);
 

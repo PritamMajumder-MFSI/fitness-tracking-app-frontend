@@ -1,6 +1,6 @@
 <div class="workout-dialog-container">
   <h5 mat-dialog-title style="font-weight: 500">
-    {{ this.data?.workout ? "Edit" : "Create" }} Workout
+    {{ this.data.workout ? "Edit" : "Create" }} Workout
   </h5>
   <mat-divider></mat-divider>
   <mat-dialog-content>
@@ -74,7 +74,7 @@
       [disabled]="workoutForm.invalid"
       (click)="onSubmit()"
     >
-      {{ this.data?.workout ? "Edit" : "Create" }}
+      {{ this.data.workout ? "Edit" : "Create" }}
     </button>
   </mat-dialog-actions>
 </div>

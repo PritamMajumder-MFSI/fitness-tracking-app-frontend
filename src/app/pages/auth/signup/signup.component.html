@@ -1,69 +1,62 @@
-<app-auth-layout>
-  <form class="outer-form" [formGroup]="signUpForm" (ngSubmit)="login()">
-    <h5>Welcome to TrackFit</h5>
+<form class="outer-form" [formGroup]="signUpForm" (ngSubmit)="login()">
+  <h5>Welcome to TrackFit</h5>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Username</mat-label>
-      <input formControlName="username" type="text" matInput placeholder="" />
-      <mat-error *ngIf="getErrorMessage('username', signUpForm)">
-        {{ getErrorMessage("username", signUpForm) }}
-      </mat-error>
-    </mat-form-field>
-    <mat-form-field appearance="outline" class="mt-half">
-      <mat-label>Email</mat-label>
-      <input
-        formControlName="email"
-        type="email"
-        matInput
-        placeholder="Ex. example@example.com"
-      />
-      <mat-error *ngIf="getErrorMessage('email', signUpForm)">
-        {{ getErrorMessage("email", signUpForm) }}
-      </mat-error>
-    </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Username</mat-label>
+    <input formControlName="username" type="text" matInput placeholder="" />
+    <mat-error *ngIf="getErrorMessage('username', signUpForm)">
+      {{ getErrorMessage("username", signUpForm) }}
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="outline" class="mt-half">
+    <mat-label>Email</mat-label>
+    <input
+      formControlName="email"
+      type="email"
+      matInput
+      placeholder="Ex. example@example.com"
+    />
+    <mat-error *ngIf="getErrorMessage('email', signUpForm)">
+      {{ getErrorMessage("email", signUpForm) }}
+    </mat-error>
+  </mat-form-field>
 
-    <mat-form-field appearance="outline" class="mt-half">
-      <mat-label>Password</mat-label>
-      <input
-        type="password"
-        formControlName="password"
-        matInput
-        placeholder=""
-      />
-      <mat-error *ngIf="getErrorMessage('password', signUpForm)">
-        {{ getErrorMessage("password", signUpForm) }}
-      </mat-error>
-    </mat-form-field>
+  <mat-form-field appearance="outline" class="mt-half">
+    <mat-label>Password</mat-label>
+    <input type="password" formControlName="password" matInput placeholder="" />
+    <mat-error *ngIf="getErrorMessage('password', signUpForm)">
+      {{ getErrorMessage("password", signUpForm) }}
+    </mat-error>
+  </mat-form-field>
 
-    <mat-form-field appearance="outline" class="mt-half">
-      <mat-label>Confirm Password</mat-label>
-      <input
-        type="password"
-        formControlName="confirmPassword"
-        matInput
-        placeholder=""
-      />
-      <mat-error *ngIf="getErrorMessage('confirmPassword', signUpForm)">
-        {{ getErrorMessage("confirmPassword", signUpForm) }}
-      </mat-error>
-    </mat-form-field>
+  <mat-form-field appearance="outline" class="mt-half">
+    <mat-label>Confirm Password</mat-label>
+    <input
+      type="password"
+      formControlName="confirmPassword"
+      matInput
+      placeholder=""
+    />
+    <mat-error *ngIf="getErrorMessage('confirmPassword', signUpForm)">
+      {{ getErrorMessage("confirmPassword", signUpForm) }}
+    </mat-error>
+  </mat-form-field>
 
-    <button
-      class="mt-half"
-      mat-flat-button
-      type="submit"
-      [disabled]="signUpForm.invalid"
-    >
-      Create an account
-    </button>
-    <button class="google-logo mt-1" type="button">
-      <img src="icons/google_logo.svg" alt="google logo" />
-      <span>Sign up with Google</span>
-    </button>
+  <button
+    class="mt-half"
+    mat-flat-button
+    type="submit"
+    [disabled]="signUpForm.invalid"
+  >
+    Create an account
+  </button>
+  <button class="google-logo mt-1" type="button">
+    <img src="icons/google_logo.svg" alt="google logo" />
+    <span>Sign up with Google</span>
+  </button>
 
-    <span class="mt-1">
-      Already have an account?
-      <a class="anchor-span" routerLink="/auth/login">Login now!</a>
-    </span>
-  </form>
-</app-auth-layout>
+  <span class="mt-1">
+    Already have an account?
+    <a class="anchor-span" routerLink="/auth/login">Login now!</a>
+  </span>
+</form>

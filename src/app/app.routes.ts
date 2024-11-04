@@ -10,10 +10,12 @@ import { GoalsComponent } from './pages/maininterface/goals/goals.component';
 import { MainInterfaceComponent } from './components/layout/main-interface/main-interface.component';
 import { authGuardFn } from './guards/auth.guard';
 import { SettingsComponent } from './pages/maininterface/settings/settings.component';
+import { AuthLayoutComponent } from './components/layout/auth-layout/auth-layout.component';
 
 export const routes: Routes = [
   {
     path: 'auth',
+    component: AuthLayoutComponent,
     children: [
       {
         path: 'login',

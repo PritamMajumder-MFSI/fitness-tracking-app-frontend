@@ -13,3 +13,11 @@ export interface IWorkout {
 export interface IWorkoutWithWorkoutType extends IWorkout {
   workoutType: ITypeInfo[];
 }
+export interface WorkoutSummary {
+  label: string;
+  totalCalories: number;
+  totalWorkouts: number;
+  workoutTypes: string[];
+}
+
+export type WorkoutSummaryByDay = WorkoutSummary[];

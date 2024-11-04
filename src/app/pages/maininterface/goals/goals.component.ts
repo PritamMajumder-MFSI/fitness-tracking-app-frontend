@@ -1,9 +1,8 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
-  inject,
   OnInit,
-  PLATFORM_ID,
   ViewChild,
 } from '@angular/core';
 import {
@@ -41,7 +40,6 @@ import { GoalDetailsComponent } from '../../../dialogs/goal-details/goal-details
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GoalsComponent implements OnInit {
-  private readonly platform = inject(PLATFORM_ID);
   displayedColumns: string[] = [
     'goalType',
     'targetValue',
@@ -61,7 +59,8 @@ export class GoalsComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private backendService: BackendService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private cd: ChangeDetectorRef
   ) {
     const storedFormat = localStorage.getItem('dateFormat');
     console.log(storedFormat, storedFormat == '2');
@@ -84,7 +83,7 @@ export class GoalsComponent implements OnInit {
       );
       this.dataSource = result.data.goals;
       this.totalGoals = result.data.totalGoals;
-      console.log(this.totalGoals);
+      this.cd.detectChanges();
     } catch (err) {
       console.log(err);
       this.toastService.add('Could not fetch goals', 3000, 'error');

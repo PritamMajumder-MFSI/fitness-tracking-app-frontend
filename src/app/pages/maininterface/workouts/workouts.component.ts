@@ -1,5 +1,6 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   inject,
   OnInit,
@@ -63,7 +64,8 @@ export class WorkoutsComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private backendService: BackendService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private cd: ChangeDetectorRef
   ) {
     if (isPlatformBrowser(this.platform)) {
       const storedFormat = localStorage.getItem('dateFormat');
@@ -99,6 +101,7 @@ export class WorkoutsComponent implements OnInit {
       );
       this.dataSource = result.data.workouts;
       this.totalWorkouts = result.data.total;
+      this.cd.detectChanges();
     } catch (err) {
       console.log(err);
       this.toastService.add('Could not fetch workouts', 3000, 'error');

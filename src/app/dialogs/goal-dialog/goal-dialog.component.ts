@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -7,7 +7,6 @@ import {
 } from '@angular/forms';
 import {
   MatDialogRef,
-  MAT_DIALOG_DATA,
   MatDialogContent,
   MatDialogActions,
 } from '@angular/material/dialog';
@@ -18,7 +17,6 @@ import { MatButton } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatSelectModule } from '@angular/material/select';
-import { IGoal } from '../../../models/Goal';
 
 @Component({
   selector: 'app-goal-dialog',
@@ -47,8 +45,7 @@ export class GoalDialogComponent {
   ];
   constructor(
     private fb: FormBuilder,
-    public dialogRef: MatDialogRef<GoalDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: IGoal
+    public dialogRef: MatDialogRef<GoalDialogComponent>
   ) {
     this.goalForm = this.fb.group({
       goalType: ['', Validators.required],

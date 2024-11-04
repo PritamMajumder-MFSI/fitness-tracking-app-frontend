@@ -1,49 +1,42 @@
-<app-auth-layout>
-  <form class="outer-form" [formGroup]="loginFormGroup" (ngSubmit)="login()">
-    <h5 style="font-weight: 600">Welcome to TrackFit</h5>
+<form class="outer-form" [formGroup]="loginFormGroup" (ngSubmit)="login()">
+  <h5 style="font-weight: 600">Welcome to TrackFit</h5>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Email</mat-label>
-      <input
-        formControlName="email"
-        type="email"
-        matInput
-        placeholder="Ex. pritam@example.com"
-      />
-      <mat-error *ngIf="getErrorMessage('email', loginFormGroup)">
-        {{ getErrorMessage("email", loginFormGroup) }}
-      </mat-error>
-    </mat-form-field>
-    <mat-form-field class="mt-half" appearance="outline">
-      <mat-label>Password</mat-label>
-      <input
-        type="password"
-        formControlName="password"
-        matInput
-        placeholder=""
-      />
-      <mat-error *ngIf="getErrorMessage('password', loginFormGroup)">
-        {{ getErrorMessage("password", loginFormGroup) }}
-      </mat-error>
-    </mat-form-field>
-    <button
-      class="mt-half"
-      mat-flat-button
-      type="submit"
-      [disabled]="!loginFormGroup.valid"
-    >
-      Login
-    </button>
-    <a class="mt-1 anchor-span" routerLink="/auth/forgot-password"
-      >Forgot password?</a
-    >
-    <button class="google-logo mt-1" (click)="googleSignIn()" type="button">
-      <img src="icons/google_logo.svg" alt="google logo" />
-      <span>Sign in with google</span>
-    </button>
-    <span class="mt-1"
-      >Don't have an account yet?
-      <a class="anchor-span" routerLink="/auth/sign-up">Sign up now!</a>
-    </span>
-  </form>
-</app-auth-layout>
+  <mat-form-field appearance="outline">
+    <mat-label>Email</mat-label>
+    <input
+      formControlName="email"
+      type="email"
+      matInput
+      placeholder="Ex. pritam@example.com"
+    />
+    <mat-error *ngIf="getErrorMessage('email', loginFormGroup)">
+      {{ getErrorMessage("email", loginFormGroup) }}
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field class="mt-half" appearance="outline">
+    <mat-label>Password</mat-label>
+    <input type="password" formControlName="password" matInput placeholder="" />
+    <mat-error *ngIf="getErrorMessage('password', loginFormGroup)">
+      {{ getErrorMessage("password", loginFormGroup) }}
+    </mat-error>
+  </mat-form-field>
+  <button
+    class="mt-half"
+    mat-flat-button
+    type="submit"
+    [disabled]="!loginFormGroup.valid"
+  >
+    Login
+  </button>
+  <a class="mt-1 anchor-span" routerLink="/auth/forgot-password"
+    >Forgot password?</a
+  >
+  <button class="google-logo mt-1" (click)="googleSignIn()" type="button">
+    <img src="icons/google_logo.svg" alt="google logo" />
+    <span>Sign in with google</span>
+  </button>
+  <span class="mt-1"
+    >Don't have an account yet?
+    <a class="anchor-span" routerLink="/auth/sign-up">Sign up now!</a>
+  </span>
+</form>
