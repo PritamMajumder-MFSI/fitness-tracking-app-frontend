@@ -1,4 +1,9 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  ViewChild,
+} from '@angular/core';
 import { BackendService } from '../../../services/backend.service';
 import { CommonModule } from '@angular/common';
 import { lastValueFrom } from 'rxjs';
@@ -27,6 +32,7 @@ Chart.register(...registerables);
   ],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DashboardComponent {
   workouts: any[] = [];

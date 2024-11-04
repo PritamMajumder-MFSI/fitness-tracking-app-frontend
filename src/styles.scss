@@ -69,11 +69,11 @@ body {
 }
 body.dark {
   @include darken();
-  @include mat.all-component-themes($fitness-tracker-frontend-dark-theme);
+  @include mat.all-component-colors($fitness-tracker-frontend-dark-theme);
 }
 body.light {
   @include lighten();
-  @include mat.all-component-themes($fitness-tracker-frontend-light-theme);
+  @include mat.all-component-colors($fitness-tracker-frontend-light-theme);
 }
 
 input[type="number"]::-webkit-inner-spin-button,

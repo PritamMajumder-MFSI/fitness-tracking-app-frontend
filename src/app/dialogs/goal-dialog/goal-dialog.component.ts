@@ -1,4 +1,9 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Inject,
+  OnInit,
+} from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -34,6 +39,7 @@ import { MatSelectModule } from '@angular/material/select';
   ],
   templateUrl: './goal-dialog.component.html',
   styleUrl: './goal-dialog.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GoalDialogComponent {
   public goalForm: FormGroup;

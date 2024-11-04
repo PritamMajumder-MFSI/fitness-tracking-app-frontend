@@ -1,4 +1,10 @@
-import { Component, inject, PLATFORM_ID, ViewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  PLATFORM_ID,
+  ViewChild,
+} from '@angular/core';
 import {
   MatPaginator,
   MatPaginatorModule,
@@ -11,7 +17,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { BackendService } from '../../../services/backend.service';
 import { lastValueFrom } from 'rxjs';
 import { ToastService } from '../../../services/toast.service';
-import { CommonModule, DatePipe, isPlatformBrowser } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { GoalDialogComponent } from '../../../dialogs/goal-dialog/goal-dialog.component';
 import { IGoal } from '../../../../models/Goal';
 import { FormatCamelCasePipe } from '../../../pipes/format-camel-case.pipe';
@@ -31,6 +37,7 @@ import { GoalDetailsComponent } from '../../../dialogs/goal-details/goal-details
   ],
   templateUrl: './goals.component.html',
   styleUrl: './goals.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GoalsComponent {
   private readonly platform = inject(PLATFORM_ID);

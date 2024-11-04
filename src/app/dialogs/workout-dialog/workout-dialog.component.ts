@@ -1,4 +1,9 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Inject,
+  OnInit,
+} from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -35,6 +40,7 @@ import { MatSelectModule } from '@angular/material/select';
   ],
   templateUrl: './workout-dialog.component.html',
   styleUrls: ['./workout-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WorkoutDialogComponent implements OnInit {
   public workoutForm: FormGroup;

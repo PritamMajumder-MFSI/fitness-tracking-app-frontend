@@ -1,6 +1,7 @@
 import { DatePipe, isPlatformBrowser } from '@angular/common';
 import {
   AfterViewInit,
+  ChangeDetectionStrategy,
   Component,
   ElementRef,
   inject,
@@ -23,6 +24,7 @@ Chart.register(...registerables);
   imports: [MatDivider, MatButton, DatePipe, FormatCamelCasePipe],
   templateUrl: './goal-details.component.html',
   styleUrls: ['./goal-details.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GoalDetailsComponent implements AfterViewInit {
   @ViewChild('chartCalories') chartCaloriesRef!: ElementRef;

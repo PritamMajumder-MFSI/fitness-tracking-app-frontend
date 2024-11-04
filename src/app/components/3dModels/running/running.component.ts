@@ -1,9 +1,13 @@
+import { isPlatformBrowser } from '@angular/common';
 import {
   Component,
   OnInit,
   ElementRef,
   ViewChild,
   AfterViewInit,
+  PLATFORM_ID,
+  Inject,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
@@ -14,6 +18,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
   imports: [],
   templateUrl: './running.component.html',
   styleUrls: ['./running.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RunningComponent implements OnInit, AfterViewInit {
   @ViewChild('canvasContainer', { static: true }) canvasContainer!: ElementRef;
@@ -23,11 +28,13 @@ export class RunningComponent implements OnInit, AfterViewInit {
   private model: THREE.Object3D | undefined;
   private renderer!: THREE.WebGLRenderer;
   private camera!: THREE.PerspectiveCamera;
-
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
   ngOnInit() {}
 
   ngAfterViewInit() {
-    this.createThreeJsBox();
+    if (isPlatformBrowser(this.platformId)) {
+      this.createThreeJsBox();
+    }
   }
 
   createThreeJsBox() {

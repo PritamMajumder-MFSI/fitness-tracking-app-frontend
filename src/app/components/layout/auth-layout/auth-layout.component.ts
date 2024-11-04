@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RunningComponent } from '../../3dModels/running/running.component';
 
 @Component({
@@ -7,5 +7,6 @@ import { RunningComponent } from '../../3dModels/running/running.component';
   imports: [AuthLayoutComponent, RunningComponent],
   templateUrl: './auth-layout.component.html',
   styleUrl: './auth-layout.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AuthLayoutComponent {}

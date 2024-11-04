@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   inject,
   OnInit,
@@ -35,6 +36,7 @@ import { CommonModule, DatePipe, isPlatformBrowser } from '@angular/common';
   ],
   templateUrl: './workouts.component.html',
   styleUrl: './workouts.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WorkoutsComponent implements OnInit {
   isGridView = false;

@@ -9,7 +9,10 @@ import { LoginComponent } from './login.component';
 import { BackendService } from '../../../services/backend.service';
 import { ToastService } from '../../../services/toast.service';
 import { provideRouter, Router } from '@angular/router';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  BrowserAnimationsModule,
+  NoopAnimationsModule,
+} from '@angular/platform-browser/animations';
 import { routes } from '../../../app.routes';
 import { of, throwError } from 'rxjs';
 
@@ -34,7 +37,7 @@ describe('LoginComponent', () => {
       },
     } as unknown as Window & typeof globalThis;
     await TestBed.configureTestingModule({
-      imports: [LoginComponent, BrowserAnimationsModule],
+      imports: [LoginComponent, NoopAnimationsModule],
       providers: [
         {
           provide: BackendService,

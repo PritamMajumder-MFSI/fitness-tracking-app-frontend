@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { SidenavComponent } from '../../sidenav/sidenav.component';
 import { Router, RouterOutlet } from '@angular/router';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -18,6 +18,7 @@ import { MatDividerModule } from '@angular/material/divider';
   ],
   templateUrl: './main-interface.component.html',
   styleUrl: './main-interface.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MainInterfaceComponent {
   public headers: {

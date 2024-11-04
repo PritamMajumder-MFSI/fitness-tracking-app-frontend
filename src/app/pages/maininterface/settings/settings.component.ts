@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MatInputModule } from '@angular/material/input';
 import getErrorMessage from '../../../../utils/getErrorMessage';
 import {
@@ -27,6 +27,7 @@ type Mode = 'dark' | 'light';
   ],
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SettingsComponent implements OnInit {
   public settingsForm: FormGroup;
