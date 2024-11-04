@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -8,7 +9,6 @@ import { Observable } from 'rxjs';
 export class BackendService {
   private httpHeaders = new HttpHeaders();
 
-  private backendUri = 'http://localhost:3000/api/v1/';
   constructor(private _http: HttpClient) {
     this.httpHeaders.set('Content-Type', 'application/json');
   }
@@ -18,7 +18,7 @@ export class BackendService {
     payload: B
   ): Observable<{ success: boolean; data: T; message: string }> {
     return this._http.post<{ success: boolean; data: T; message: string }>(
-      this.backendUri + route,
+      environment.backendUri + route,
       payload,
       {
         headers: this.httpHeaders,
@@ -31,7 +31,7 @@ export class BackendService {
     params: Record<string, string> = {}
   ): Observable<{ success: boolean; data: T; message: string }> {
     return this._http.get<{ success: boolean; data: T; message: string }>(
-      this.backendUri + route,
+      environment.backendUri + route,
       { params, headers: this.httpHeaders, withCredentials: true }
     );
   }
@@ -40,7 +40,7 @@ export class BackendService {
     payload: B
   ): Observable<{ success: boolean; data: T; message: string }> {
     return this._http.patch<{ success: boolean; data: T; message: string }>(
-      this.backendUri + route,
+      environment.backendUri + route,
       payload,
       {
         headers: this.httpHeaders,
