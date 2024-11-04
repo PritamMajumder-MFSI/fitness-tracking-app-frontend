@@ -16,6 +16,8 @@ export const httpInterceptor: HttpInterceptorFn = <T>(
   next: (req: HttpRequest<T>) => Observable<HttpEvent<T>>
 ) => {
   const httpLoadingService = inject(HttpLoaderService);
+  const backendService = inject(BackendService);
+  const router = inject(Router);
 
   httpLoadingService.setLoading(true, req.url);
 
@@ -28,9 +30,9 @@ export const httpInterceptor: HttpInterceptorFn = <T>(
     }),
     catchError((err: HttpErrorResponse) => {
       httpLoadingService.setLoading(false, req.url);
-
+      console.log('Interceptor failed->', err.status);
       if (err.status === 412) {
-        return handleRefreshToken(req, next);
+        return handleRefreshToken(req, next, backendService, router);
       }
 
       return throwError(() => err);
@@ -40,11 +42,11 @@ export const httpInterceptor: HttpInterceptorFn = <T>(
 
 const handleRefreshToken = (
   req: HttpRequest<any>,
-  next: (req: HttpRequest<any>) => Observable<HttpEvent<any>>
+  next: (req: HttpRequest<any>) => Observable<HttpEvent<any>>,
+  backendService: BackendService,
+  router: Router
 ) => {
-  const backendService = inject(BackendService);
-  const router = inject(Router);
-
+  console.log('call backend again');
   return backendService.postApiCall('auth/refresh-token', {}).pipe(
     switchMap(() => {
       return next(req);
