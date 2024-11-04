@@ -13,4 +13,11 @@ describe('AuthServiceService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
+  it('should set username and email correctly', () => {
+    const userData = { username: 'testUser', email: 'test@example.com' };
+    service.setDetails(userData);
+
+    expect(service.username).toBe('testUser');
+    expect(service.email).toBe('test@example.com');
+  });
 });
