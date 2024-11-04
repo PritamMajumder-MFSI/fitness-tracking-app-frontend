@@ -24,13 +24,13 @@ export class RunningComponent implements OnInit, AfterViewInit {
   private renderer!: THREE.WebGLRenderer;
   private camera!: THREE.PerspectiveCamera;
 
-  ngOnInit(): void {}
+  ngOnInit() {}
 
-  ngAfterViewInit(): void {
+  ngAfterViewInit() {
     this.createThreeJsBox();
   }
 
-  createThreeJsBox(): void {
+  createThreeJsBox() {
     const container = this.canvasContainer.nativeElement;
 
     const scene = new THREE.Scene();
@@ -112,12 +112,12 @@ export class RunningComponent implements OnInit, AfterViewInit {
     );
   }
 
-  onMouseDown(event: MouseEvent): void {
+  onMouseDown(event: MouseEvent) {
     this.isDragging = true;
     this.previousMousePosition.x = event.clientX;
   }
 
-  onMouseMove(event: MouseEvent): void {
+  onMouseMove(event: MouseEvent) {
     if (!this.isDragging || !this.model) return;
 
     const deltaX = event.clientX - this.previousMousePosition.x;
@@ -126,11 +126,11 @@ export class RunningComponent implements OnInit, AfterViewInit {
     this.previousMousePosition.x = event.clientX;
   }
 
-  onMouseUp(): void {
+  onMouseUp() {
     this.isDragging = false;
   }
 
-  onWindowResize(container: HTMLElement, scene: THREE.Scene): void {
+  onWindowResize(container: HTMLElement, scene: THREE.Scene) {
     const containerSizes = {
       width: container.clientWidth,
       height: container.clientHeight,

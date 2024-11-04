@@ -91,7 +91,7 @@ export class DashboardComponent {
     return Array.from(typesMap, ([type, count]) => ({ type, count }));
   }
 
-  createCaloriesChart(labels: string[], calories: number[]): void {
+  createCaloriesChart(labels: string[], calories: number[]) {
     if (this.caloriesChart) {
       this.caloriesChart.destroy();
     }
@@ -121,7 +121,7 @@ export class DashboardComponent {
     });
   }
 
-  createWorkoutsChart(labels: string[], workouts: number[]): void {
+  createWorkoutsChart(labels: string[], workouts: number[]) {
     if (this.workoutsChart) {
       this.workoutsChart.destroy();
     }
@@ -150,7 +150,7 @@ export class DashboardComponent {
     });
   }
 
-  createTypesChart(workoutTypes: { type: string; count: number }[]): void {
+  createTypesChart(workoutTypes: { type: string; count: number }[]) {
     if (this.typesChart) {
       this.typesChart.destroy();
     }

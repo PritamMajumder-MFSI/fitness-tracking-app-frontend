@@ -54,27 +54,15 @@ export class GoalDialogComponent {
       to: ['', Validators.required],
     });
   }
-  ngOnInit(): void {
-    if (this.data?.workout) {
-      this.goalForm.setValue({
-        date: this.data?.workout?.date,
-        duration: this.data?.workout?.duration,
-        calories: this.data?.workout?.calories,
-        type: this.data?.workout.type,
-      });
-    }
-  }
+  ngOnInit() {}
 
-  onCancel(): void {
+  onCancel() {
     this.dialogRef.close();
   }
 
-  onSubmit(): void {
+  onSubmit() {
     if (this.goalForm.valid) {
       const response = this.goalForm.value;
-      if (this.data.workout) {
-        response._id = this.data.workout._id;
-      }
       this.dialogRef.close(response);
     }
   }

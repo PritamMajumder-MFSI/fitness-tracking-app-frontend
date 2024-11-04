@@ -52,7 +52,7 @@ export class WorkoutDialogComponent implements OnInit {
       date: ['', Validators.required],
     });
   }
-  ngOnInit(): void {
+  ngOnInit() {
     if (this.data?.workout) {
       this.workoutForm.setValue({
         date: this.data?.workout?.date,
@@ -63,11 +63,11 @@ export class WorkoutDialogComponent implements OnInit {
     }
   }
 
-  onCancel(): void {
+  onCancel() {
     this.dialogRef.close();
   }
 
-  onSubmit(): void {
+  onSubmit() {
     if (this.workoutForm.valid) {
       const response = this.workoutForm.value;
       if (this.data.workout) {

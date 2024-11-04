@@ -117,7 +117,7 @@ export class GoalsComponent {
       console.log('Dialog closed', result);
     });
   }
-  toggleView(): void {
+  toggleView() {
     this.isGridView = !this.isGridView;
   }
 }

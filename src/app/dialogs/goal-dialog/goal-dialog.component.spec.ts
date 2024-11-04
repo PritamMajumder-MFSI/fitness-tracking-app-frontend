@@ -8,12 +8,13 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 describe('GoalDialogComponent', () => {
   let component: GoalDialogComponent;
   let fixture: ComponentFixture<GoalDialogComponent>;
-
+  let dialogRefMock: jasmine.SpyObj<MatDialogRef<GoalDialogComponent>>;
   beforeEach(async () => {
+    dialogRefMock = jasmine.createSpyObj('MatDialogRef', ['close']);
     await TestBed.configureTestingModule({
       imports: [GoalDialogComponent, NoopAnimationsModule],
       providers: [
-        { provide: MatDialogRef, useValue: {} },
+        { provide: MatDialogRef, useValue: dialogRefMock },
         { provide: MAT_DIALOG_DATA, useValue: [] },
         provideNativeDateAdapter(),
       ],
@@ -26,5 +27,23 @@ describe('GoalDialogComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should not close dialog on wrong submit', () => {
+    component.goalForm.setValue({
+      goalType: '',
+      targetValue: -1,
+      from: '',
+      to: '',
+    });
+
+    component.onSubmit();
+
+    expect(dialogRefMock.close).not.toHaveBeenCalled();
+  });
+
+  it('should close the dialog on cancel', () => {
+    component.onCancel();
+    expect(dialogRefMock.close).toHaveBeenCalledWith();
   });
 });

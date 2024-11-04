@@ -38,7 +38,7 @@ export class AppComponent {
   removeToast(index: number) {
     this.toastService.remove(index);
   }
-  listenToLoading(): void {
+  listenToLoading() {
     this._loading.loadingSub.pipe(delay(0)).subscribe((loading) => {
       this.loading = loading;
     });

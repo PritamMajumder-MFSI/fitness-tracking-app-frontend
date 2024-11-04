@@ -52,18 +52,18 @@ export class GoalDetailsComponent implements AfterViewInit {
     }
   }
 
-  ngAfterViewInit(): void {
+  ngAfterViewInit() {
     this.createCharts();
   }
 
-  ngOnDestroy(): void {
+  ngOnDestroy() {
     this.chartCalories?.destroy();
     this.chartWorkouts?.destroy();
     this.chartTypes?.destroy();
     this.chartProgress?.destroy();
   }
 
-  createCharts(): void {
+  createCharts() {
     const { workouts, targetValue, goalType } = this.data.goal;
 
     const dates = this.getUniqueDates(workouts);
@@ -148,7 +148,7 @@ export class GoalDetailsComponent implements AfterViewInit {
     return Math.min((totalAchieved / targetValue) * 100, 100);
   }
 
-  createCaloriesChart(dates: string[], calories: number[]): void {
+  createCaloriesChart(dates: string[], calories: number[]) {
     this.chartCalories = new Chart(this.chartCaloriesRef.nativeElement, {
       type: 'line',
       data: {
@@ -175,7 +175,7 @@ export class GoalDetailsComponent implements AfterViewInit {
     });
   }
 
-  createWorkoutsChart(dates: string[], workouts: number[]): void {
+  createWorkoutsChart(dates: string[], workouts: number[]) {
     this.chartWorkouts = new Chart(this.chartWorkoutsRef.nativeElement, {
       type: 'bar',
       data: {
@@ -201,7 +201,7 @@ export class GoalDetailsComponent implements AfterViewInit {
     });
   }
 
-  createTypesChart(workoutTypes: { type: string; count: number }[]): void {
+  createTypesChart(workoutTypes: { type: string; count: number }[]) {
     this.chartTypes = new Chart(this.chartTypesRef.nativeElement, {
       type: 'pie',
       data: {
@@ -225,7 +225,7 @@ export class GoalDetailsComponent implements AfterViewInit {
     });
   }
 
-  createProgressChart(progress: number): void {
+  createProgressChart(progress: number) {
     this.chartProgress = new Chart(this.chartProgressRef.nativeElement, {
       type: 'doughnut',
       data: {
