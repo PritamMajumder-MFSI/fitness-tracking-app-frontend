@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { AuthServiceService } from '../../services/auth-service.service';
 import { BackendService } from '../../services/backend.service';
 import { lastValueFrom } from 'rxjs';
+import { ToastService } from '../../services/toast.service';
 
 @Component({
   selector: 'app-sidenav',
@@ -19,7 +20,8 @@ export class SidenavComponent {
   constructor(
     private router: Router,
     public authService: AuthServiceService,
-    private backendService: BackendService
+    private backendService: BackendService,
+    private toastService: ToastService
   ) {}
   public sidenavItems = [
     {
@@ -47,11 +49,14 @@ export class SidenavComponent {
     return this.router.url === route;
   }
   closeDrawer() {
-    console.log('emitting');
     this.closeDrawerEvent.emit(true);
   }
   async logout() {
-    await lastValueFrom(this.backendService.getApi('auth/logout'));
-    this.router.navigate(['auth/login']);
+    try {
+      await lastValueFrom(this.backendService.getApi('auth/logout'));
+      this.router.navigate(['auth/login']);
+    } catch (err) {
+      this.toastService.add('Logout unsuccessful', 3000, 'error');
+    }
   }
 }
