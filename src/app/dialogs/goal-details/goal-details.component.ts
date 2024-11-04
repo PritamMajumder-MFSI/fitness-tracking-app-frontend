@@ -1,5 +1,6 @@
 import { DatePipe, isPlatformBrowser } from '@angular/common';
 import {
+  AfterViewInit,
   Component,
   ElementRef,
   inject,
@@ -12,7 +13,6 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatDivider } from '@angular/material/divider';
 import { Chart, registerables } from 'chart.js';
 import { FormatCamelCasePipe } from '../../pipes/format-camel-case.pipe';
-import { IWorkout } from '../../../models/Workout';
 import { IWorkoutWithType } from '../../../models/Goal';
 
 Chart.register(...registerables);
@@ -24,7 +24,7 @@ Chart.register(...registerables);
   templateUrl: './goal-details.component.html',
   styleUrls: ['./goal-details.component.scss'],
 })
-export class GoalDetailsComponent {
+export class GoalDetailsComponent implements AfterViewInit {
   @ViewChild('chartCalories') chartCaloriesRef!: ElementRef;
   @ViewChild('chartWorkouts') chartWorkoutsRef!: ElementRef;
   @ViewChild('chartTypes') chartTypesRef!: ElementRef;
@@ -52,10 +52,8 @@ export class GoalDetailsComponent {
     }
   }
 
-  ngOnInit(): void {
-    setTimeout(() => {
-      this.createCharts();
-    });
+  ngAfterViewInit(): void {
+    this.createCharts();
   }
 
   ngOnDestroy(): void {
