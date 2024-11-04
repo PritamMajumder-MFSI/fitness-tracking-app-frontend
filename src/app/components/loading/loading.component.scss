@@ -1,0 +1,16 @@
+.loading-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--bgColor);
+  z-index: 5;
+  img {
+    height: 10rem;
+    width: 10rem;
+  }
+}

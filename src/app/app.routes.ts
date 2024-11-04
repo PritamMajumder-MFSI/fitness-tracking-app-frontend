@@ -11,6 +11,7 @@ import { MainInterfaceComponent } from './components/layout/main-interface/main-
 import { authGuardFn } from './guards/auth.guard';
 import { SettingsComponent } from './pages/maininterface/settings/settings.component';
 import { AuthLayoutComponent } from './components/layout/auth-layout/auth-layout.component';
+import { LoadingComponent } from './components/loading/loading.component';
 
 export const routes: Routes = [
   {
@@ -62,7 +63,10 @@ export const routes: Routes = [
       },
     ],
   },
-
+  {
+    path: 'loading',
+    component: LoadingComponent,
+  },
   {
     path: '**',
     component: NotFoundComponent,
