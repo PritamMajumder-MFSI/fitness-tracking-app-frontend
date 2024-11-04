@@ -12,14 +12,14 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
 @Component({
-  selector: 'app-running',
+  selector: 'app-running-model',
   standalone: true,
   imports: [],
-  templateUrl: './running.component.html',
-  styleUrls: ['./running.component.scss'],
+  templateUrl: './running-model.component.html',
+  styleUrls: ['./running-model.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RunningComponent implements AfterViewInit {
+export class RunningModelComponent implements AfterViewInit {
   @ViewChild('canvasContainer', { static: true }) canvasContainer!: ElementRef;
   private mixer: THREE.AnimationMixer | undefined;
   private isDragging = false;
@@ -39,10 +39,10 @@ export class RunningComponent implements AfterViewInit {
     const container = this.canvasContainer.nativeElement;
 
     const scene = new THREE.Scene();
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1);
     scene.add(ambientLight);
 
-    const pointLight = new THREE.PointLight(0xffffff, 0.5);
+    const pointLight = new THREE.PointLight(0xffffff, 1);
     pointLight.position.set(2, 2, 2);
     scene.add(pointLight);
 

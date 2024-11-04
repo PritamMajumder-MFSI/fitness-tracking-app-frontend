@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RunningComponent } from './running.component';
+import { RunningModelComponent } from './running-model.component';
 
-describe('RunningComponent', () => {
-  let component: RunningComponent;
-  let fixture: ComponentFixture<RunningComponent>;
+describe('RunningModelComponent', () => {
+  let component: RunningModelComponent;
+  let fixture: ComponentFixture<RunningModelComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RunningComponent],
+      imports: [RunningModelComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(RunningComponent);
+    fixture = TestBed.createComponent(RunningModelComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
