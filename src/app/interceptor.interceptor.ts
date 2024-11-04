@@ -3,17 +3,20 @@ import {
   HttpInterceptorFn,
   HttpRequest,
   HttpResponse,
+  HttpErrorResponse,
 } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { catchError, map, Observable, throwError } from 'rxjs';
+import { catchError, map, Observable, throwError, switchMap } from 'rxjs';
 import { HttpLoaderService } from './services/http-loader.service';
+import { Router } from '@angular/router';
+import { BackendService } from './services/backend.service';
 
-// Define the interceptor
 export const httpInterceptor: HttpInterceptorFn = <T>(
   req: HttpRequest<T>,
   next: (req: HttpRequest<T>) => Observable<HttpEvent<T>>
 ) => {
   const httpLoadingService = inject(HttpLoaderService);
+
   httpLoadingService.setLoading(true, req.url);
 
   return next(req).pipe(
@@ -23,9 +26,33 @@ export const httpInterceptor: HttpInterceptorFn = <T>(
       }
       return evt;
     }),
-    catchError((err) => {
+    catchError((err: HttpErrorResponse) => {
       httpLoadingService.setLoading(false, req.url);
+
+      if (err.status === 412) {
+        return handleRefreshToken(req, next);
+      }
+
       return throwError(() => err);
+    })
+  );
+};
+
+const handleRefreshToken = (
+  req: HttpRequest<any>,
+  next: (req: HttpRequest<any>) => Observable<HttpEvent<any>>
+) => {
+  const backendService = inject(BackendService);
+  const router = inject(Router);
+
+  return backendService.postApiCall('auth/refresh-token', {}).pipe(
+    switchMap(() => {
+      return next(req);
+    }),
+    catchError((refreshError) => {
+      console.error('Token refresh failed', refreshError);
+      router.navigate(['/auth/login']);
+      return throwError(() => refreshError);
     })
   );
 };
