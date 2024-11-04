@@ -60,7 +60,7 @@ export class LoginComponent {
 
     try {
       await lastValueFrom(
-        this._backendService.postApiCall<any, any>(
+        this._backendService.postApiCall(
           '/auth/login',
           this.loginFormGroup.value
         )

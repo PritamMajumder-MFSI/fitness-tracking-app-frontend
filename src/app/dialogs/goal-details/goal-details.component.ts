@@ -8,11 +8,12 @@ import {
   Inject,
   PLATFORM_ID,
   ViewChild,
+  OnDestroy,
 } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatDivider } from '@angular/material/divider';
-import { Chart, registerables } from 'chart.js';
+import { Chart, registerables, ChartConfiguration } from 'chart.js';
 import { FormatCamelCasePipe } from '../../pipes/format-camel-case.pipe';
 import { IWorkoutWithType } from '../../../models/Goal';
 
@@ -26,31 +27,34 @@ Chart.register(...registerables);
   styleUrls: ['./goal-details.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class GoalDetailsComponent implements AfterViewInit {
-  @ViewChild('chartCalories') chartCaloriesRef!: ElementRef;
-  @ViewChild('chartWorkouts') chartWorkoutsRef!: ElementRef;
-  @ViewChild('chartTypes') chartTypesRef!: ElementRef;
-  @ViewChild('chartProgress') chartProgressRef!: ElementRef;
+export class GoalDetailsComponent implements AfterViewInit, OnDestroy {
+  @ViewChild('chartCalories') chartCaloriesRef!: ElementRef<HTMLCanvasElement>;
+  @ViewChild('chartWorkouts') chartWorkoutsRef!: ElementRef<HTMLCanvasElement>;
+  @ViewChild('chartTypes') chartTypesRef!: ElementRef<HTMLCanvasElement>;
+  @ViewChild('chartProgress') chartProgressRef!: ElementRef<HTMLCanvasElement>;
 
-  chartCalories: any;
-  chartWorkouts: any;
-  chartTypes: any;
-  chartProgress: any;
+  chartCalories?: Chart<'line', number[], string>;
+  chartWorkouts?: Chart<'bar', number[], string>;
+  chartTypes?: Chart<'pie', number[], string>;
+  chartProgress?: Chart<'doughnut', number[], string>;
 
-  dateFormat: string = 'dd/MM/yyyy';
+  dateFormat = 'dd/MM/yyyy';
 
   private readonly platform = inject(PLATFORM_ID);
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    @Inject(MAT_DIALOG_DATA)
+    public data: {
+      goal: {
+        workouts: IWorkoutWithType[];
+        targetValue: number;
+        goalType: string;
+      };
+    },
     public dialogRef: MatDialogRef<GoalDetailsComponent>
   ) {
     if (isPlatformBrowser(this.platform)) {
       const storedFormat = localStorage.getItem('dateFormat');
-      if (storedFormat == '2') {
-        this.dateFormat = 'MM/dd/yyyy';
-      } else {
-        this.dateFormat = 'dd/MM/yyyy';
-      }
+      this.dateFormat = storedFormat === '2' ? 'MM/dd/yyyy' : 'dd/MM/yyyy';
     }
   }
 
@@ -80,7 +84,7 @@ export class GoalDetailsComponent implements AfterViewInit {
     this.createProgressChart(progress);
   }
 
-  getUniqueDates(workouts: any[]): string[] {
+  getUniqueDates(workouts: IWorkoutWithType[]): string[] {
     const dateSet = new Set(
       workouts.map((w) =>
         new Date(w.date).toLocaleDateString('en-GB', {
@@ -92,7 +96,7 @@ export class GoalDetailsComponent implements AfterViewInit {
     return Array.from(dateSet);
   }
 
-  getCaloriesPerDate(workouts: any[], dates: string[]): number[] {
+  getCaloriesPerDate(workouts: IWorkoutWithType[], dates: string[]): number[] {
     return dates.map((date) =>
       workouts
         .filter(
@@ -106,7 +110,7 @@ export class GoalDetailsComponent implements AfterViewInit {
     );
   }
 
-  getWorkoutsPerDate(workouts: any[], dates: string[]): number[] {
+  getWorkoutsPerDate(workouts: IWorkoutWithType[], dates: string[]): number[] {
     return dates.map(
       (date) =>
         workouts.filter(
@@ -122,7 +126,7 @@ export class GoalDetailsComponent implements AfterViewInit {
   getWorkoutsByType(
     workouts: IWorkoutWithType[]
   ): { type: string; count: number }[] {
-    const typesMap = new Map();
+    const typesMap = new Map<string, number>();
     workouts.forEach((w) => {
       typesMap.set(
         w.typeInfo.workoutTypeName,
@@ -151,7 +155,7 @@ export class GoalDetailsComponent implements AfterViewInit {
   }
 
   createCaloriesChart(dates: string[], calories: number[]) {
-    this.chartCalories = new Chart(this.chartCaloriesRef.nativeElement, {
+    const config: ChartConfiguration<'line', number[], string> = {
       type: 'line',
       data: {
         labels: dates,
@@ -174,11 +178,13 @@ export class GoalDetailsComponent implements AfterViewInit {
           },
         },
       },
-    });
+    };
+
+    this.chartCalories = new Chart(this.chartCaloriesRef.nativeElement, config);
   }
 
   createWorkoutsChart(dates: string[], workouts: number[]) {
-    this.chartWorkouts = new Chart(this.chartWorkoutsRef.nativeElement, {
+    const config: ChartConfiguration<'bar', number[], string> = {
       type: 'bar',
       data: {
         labels: dates,
@@ -200,11 +206,13 @@ export class GoalDetailsComponent implements AfterViewInit {
           },
         },
       },
-    });
+    };
+
+    this.chartWorkouts = new Chart(this.chartWorkoutsRef.nativeElement, config);
   }
 
   createTypesChart(workoutTypes: { type: string; count: number }[]) {
-    this.chartTypes = new Chart(this.chartTypesRef.nativeElement, {
+    const config: ChartConfiguration<'pie', number[], string> = {
       type: 'pie',
       data: {
         labels: workoutTypes.map((w) => w.type),
@@ -224,11 +232,13 @@ export class GoalDetailsComponent implements AfterViewInit {
           },
         },
       },
-    });
+    };
+
+    this.chartTypes = new Chart(this.chartTypesRef.nativeElement, config);
   }
 
   createProgressChart(progress: number) {
-    this.chartProgress = new Chart(this.chartProgressRef.nativeElement, {
+    const config: ChartConfiguration<'doughnut', number[], string> = {
       type: 'doughnut',
       data: {
         labels: ['Progress', 'Remaining'],
@@ -248,6 +258,8 @@ export class GoalDetailsComponent implements AfterViewInit {
           },
         },
       },
-    });
+    };
+
+    this.chartProgress = new Chart(this.chartProgressRef.nativeElement, config);
   }
 }

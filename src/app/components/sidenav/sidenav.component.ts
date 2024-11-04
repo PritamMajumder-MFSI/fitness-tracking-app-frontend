@@ -62,6 +62,7 @@ export class SidenavComponent {
       await lastValueFrom(this.backendService.getApi('auth/logout'));
       this.router.navigate(['auth/login']);
     } catch (err) {
+      console.log(err);
       this.toastService.add('Logout unsuccessful', 3000, 'error');
     }
   }

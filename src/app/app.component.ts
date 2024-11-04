@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ToastService } from './services/toast.service';
 import { CommonModule } from '@angular/common';
@@ -20,9 +20,9 @@ import { MatIconModule } from '@angular/material/icon';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'fitness-tracker-frontend';
-  loading: boolean = false;
+  loading = false;
 
   constructor(
     public toastService: ToastService,

@@ -16,6 +16,7 @@ import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { of, throwError } from 'rxjs';
 import { IWorkout, IWorkoutWithWorkoutType } from '../../../../models/Workout';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { WorkoutDialogComponent } from '../../../dialogs/workout-dialog/workout-dialog.component';
 
 describe('WorkoutsComponent', () => {
   let component: WorkoutsComponent;
@@ -23,7 +24,7 @@ describe('WorkoutsComponent', () => {
   let backendService: jasmine.SpyObj<BackendService>;
   let toastService: jasmine.SpyObj<ToastService>;
   let dialog: jasmine.SpyObj<MatDialog>;
-  let mockDialogRef: jasmine.SpyObj<MatDialogRef<any>>;
+  let mockDialogRef: jasmine.SpyObj<MatDialogRef<WorkoutDialogComponent>>;
   beforeEach(async () => {
     backendService = jasmine.createSpyObj('BackendService', [
       'getApi',
@@ -31,11 +32,10 @@ describe('WorkoutsComponent', () => {
       'postApiCall',
     ]);
     toastService = jasmine.createSpyObj('ToastService', ['add']);
-    mockDialogRef = jasmine.createSpyObj<MatDialogRef<any>>('MatDialogRef', [
-      'afterClosed',
-      'close',
-      'componentInstance',
-    ]);
+    mockDialogRef = jasmine.createSpyObj<MatDialogRef<WorkoutDialogComponent>>(
+      'MatDialogRef',
+      ['afterClosed', 'close', 'componentInstance']
+    );
     mockDialogRef.afterClosed.and.returnValue(
       of({
         duration: 30,

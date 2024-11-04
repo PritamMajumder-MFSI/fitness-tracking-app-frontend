@@ -9,7 +9,9 @@ describe('ThemingService', () => {
     TestBed.configureTestingModule({});
     service = TestBed.inject(ThemingService);
   });
-
+  afterEach(() => {
+    TestBed.resetTestingModule();
+  });
   it('should be created', () => {
     expect(service).toBeTruthy();
   });

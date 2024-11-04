@@ -30,7 +30,7 @@ import { ToastService } from '../../../services/toast.service';
   styleUrls: ['./forgot-password.component.scss'],
 })
 export class ForgotPasswordComponent {
-  public otpSent: boolean = false;
+  public otpSent = false;
   public otpForm: FormGroup;
   public resetPasswordForm: FormGroup;
 

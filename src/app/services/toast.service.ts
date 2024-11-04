@@ -1,6 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
-
 @Injectable({
   providedIn: 'root',
 })
@@ -10,7 +8,7 @@ export class ToastService {
 
   add(
     message: string,
-    duration: number = 3000,
+    duration = 3000,
     type: 'success' | 'error' = 'success'
   ) {
     this.toasts.push({ message, duration, type });

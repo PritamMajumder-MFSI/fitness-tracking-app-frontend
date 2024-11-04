@@ -59,6 +59,9 @@
           class="workout-card"
           *ngFor="let workout of dataSource"
           (click)="editWorkout(workout)"
+          (keydown.enter)="editWorkout(workout)"
+          (keydown.space)="editWorkout(workout)"
+          tabindex="0"
         >
           <div class="workout-detail">
             <span class="anchor-span">Type:</span>

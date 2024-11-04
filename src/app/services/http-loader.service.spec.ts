@@ -9,7 +9,9 @@ describe('HttpLoaderService', () => {
     TestBed.configureTestingModule({});
     service = TestBed.inject(HttpLoaderService);
   });
-
+  afterEach(() => {
+    TestBed.resetTestingModule();
+  });
   it('should be created', () => {
     expect(service).toBeTruthy();
   });

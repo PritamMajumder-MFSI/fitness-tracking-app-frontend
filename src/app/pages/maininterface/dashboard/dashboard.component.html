@@ -19,16 +19,31 @@
       <div class="chart-top">
         <span class="title">Activity Tracking</span>
         <div class="time-change">
-          <div (click)="fetchData(7)" [ngClass]="{ active: days == 7 }">
+          <div
+            (click)="fetchData(7)"
+            (keydown.enter)="fetchData(7)"
+            (keydown.space)="fetchData(7)"
+            [ngClass]="{ active: days === 7 }"
+            tabindex="0"
+          >
             7 Days
           </div>
-          <div (click)="fetchData(31)" [ngClass]="{ active: days == 31 }">
+          <div
+            (click)="fetchData(31)"
+            (keydown.enter)="fetchData(31)"
+            (keydown.space)="fetchData(31)"
+            [ngClass]="{ active: days === 31 }"
+            tabindex="0"
+          >
             1 month
           </div>
           <div
             class="last-chart"
             (click)="fetchData(365)"
-            [ngClass]="{ active: days == 365 }"
+            (keydown.enter)="fetchData(365)"
+            (keydown.space)="fetchData(365)"
+            [ngClass]="{ active: days === 365 }"
+            tabindex="0"
           >
             1 year
           </div>

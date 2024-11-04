@@ -28,7 +28,7 @@ export class BackendService {
   }
   public getApi<T>(
     route: string,
-    params: { [key: string]: string } = {}
+    params: Record<string, string> = {}
   ): Observable<{ success: boolean; data: T; message: string }> {
     return this._http.get<{ success: boolean; data: T; message: string }>(
       this.backendUri + route,

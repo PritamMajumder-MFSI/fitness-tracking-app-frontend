@@ -4,9 +4,8 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class AuthServiceService {
-  public username: string = '';
-  public email: string = '';
-  constructor() {}
+  public username = '';
+  public email = '';
   setDetails(data: { username: string; email: string }) {
     this.username = data.username;
     this.email = data.email;

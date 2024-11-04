@@ -3,6 +3,7 @@ import {
   Component,
   ElementRef,
   ViewChild,
+  OnInit,
 } from '@angular/core';
 import { BackendService } from '../../../services/backend.service';
 import { CommonModule } from '@angular/common';
@@ -15,6 +16,8 @@ import { RouterLink } from '@angular/router';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { Chart, registerables } from 'chart.js';
 import { MatDividerModule } from '@angular/material/divider';
+import { IWorkout } from '../../../../models/Workout';
+import { IGoal } from '../../../../models/Goal';
 
 Chart.register(...registerables);
 
@@ -34,15 +37,15 @@ Chart.register(...registerables);
   styleUrls: ['./dashboard.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DashboardComponent {
-  workouts: any[] = [];
-  goals: any[] = [];
-  totalCalories: number = 0;
-  totalWorkouts: number = 0;
+export class DashboardComponent implements OnInit {
+  workouts: IWorkout[] = [];
+  goals: IGoal[] = [];
+  totalCalories = 0;
+  totalWorkouts = 0;
   dashboardInfo: IDashboardResponse | undefined;
   goalDisplayedColumns: string[] = ['goalType', 'targetValue', 'progress'];
   workoutDisplayedColumns: string[] = ['type', 'duration', 'calories'];
-  days: number = 7;
+  days = 7;
   caloriesChart: Chart | undefined;
   workoutsChart: Chart | undefined;
   typesChart: any;
@@ -50,12 +53,7 @@ export class DashboardComponent {
   @ViewChild('chartWorkouts') chartWorkoutsRef!: ElementRef;
   @ViewChild('chartTypes') chartTypesRef!: ElementRef;
 
-  constructor(private backendService: BackendService) {
-    this.goals = [
-      { type: 'Weekly Workouts', targetValue: 5, achievedValue: 3 },
-      { type: 'Caloric Intake', targetValue: 2000, achievedValue: 1500 },
-    ];
-  }
+  constructor(private backendService: BackendService) {}
 
   ngOnInit() {
     this.getDashboardInfo();
@@ -185,7 +183,7 @@ export class DashboardComponent {
     });
   }
 
-  getValue(goal: any) {
+  getValue(goal: IGoal) {
     if (goal.goalType === 'workoutPerWeek') {
       return (goal.totalWorkouts / goal.targetValue) * 100;
     } else {

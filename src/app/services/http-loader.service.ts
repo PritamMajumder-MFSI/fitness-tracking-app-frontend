@@ -9,8 +9,6 @@ export class HttpLoaderService {
 
   loadingMap: Map<string, boolean> = new Map<string, boolean>();
 
-  constructor() {}
-
   setLoading(loading: boolean, url: string): void {
     if (!url) {
       throw new Error(

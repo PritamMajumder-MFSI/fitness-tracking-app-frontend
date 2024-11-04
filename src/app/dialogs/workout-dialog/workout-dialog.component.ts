@@ -23,7 +23,15 @@ import { MatButton } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatSelectModule } from '@angular/material/select';
-
+interface WorkoutData {
+  workout?: {
+    _id?: string;
+    date: string;
+    duration: number;
+    calories: number;
+    type: string;
+  };
+}
 @Component({
   selector: 'app-workout-dialog',
   standalone: true,
@@ -49,7 +57,7 @@ export class WorkoutDialogComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<WorkoutDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: WorkoutData
   ) {
     this.workoutForm = this.fb.group({
       type: ['', Validators.required],

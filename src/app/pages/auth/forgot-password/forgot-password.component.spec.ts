@@ -6,7 +6,7 @@ import { routes } from '../../../app.routes';
 import { ToastService } from '../../../services/toast.service';
 import { BackendService } from '../../../services/backend.service';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Router } from 'express';
+
 import { of, throwError } from 'rxjs';
 
 describe('ForgotPasswordComponent', () => {
@@ -15,7 +15,7 @@ describe('ForgotPasswordComponent', () => {
 
   let mockBackendService: jasmine.SpyObj<BackendService>;
   let mockToastService: jasmine.SpyObj<ToastService>;
-  let router: Router;
+
   beforeEach(async () => {
     mockBackendService = jasmine.createSpyObj('BackendService', [
       'postApiCall',
@@ -38,7 +38,6 @@ describe('ForgotPasswordComponent', () => {
 
     fixture = TestBed.createComponent(ForgotPasswordComponent);
     component = fixture.componentInstance;
-    router = TestBed.inject(Router);
     fixture.detectChanges();
   });
 
@@ -52,10 +51,9 @@ describe('ForgotPasswordComponent', () => {
 
   it('should call sendOtp when a valid email is provided', async () => {
     component.otpForm.controls['email'].setValue('test@example.com');
-    spyOn(mockBackendService, 'postApiCall').and.returnValue(
+    mockBackendService.postApiCall.and.returnValue(
       of({ success: true, data: {}, message: 'Successfully sent otp' })
     );
-    spyOn(mockToastService, 'add');
 
     await component.sendOtp();
 
@@ -75,7 +73,6 @@ describe('ForgotPasswordComponent', () => {
 
   it('should show error message for invalid email', async () => {
     component.otpForm.controls['email'].setValue('invalid-email');
-    spyOn(mockToastService, 'add');
 
     await component.sendOtp();
 
@@ -108,10 +105,9 @@ describe('ForgotPasswordComponent', () => {
     component.resetPasswordForm.controls['newPassword'].setValue(
       'NewPassword123'
     );
-    spyOn(mockBackendService, 'postApiCall').and.returnValue(
+    mockBackendService.postApiCall.and.returnValue(
       of({ success: true, message: 'Succesfully changed password', data: {} })
     );
-    spyOn(mockToastService, 'add');
 
     await component.changePassword();
 
@@ -137,10 +133,9 @@ describe('ForgotPasswordComponent', () => {
     component.resetPasswordForm.controls['newPassword'].setValue(
       'NewPassword123'
     );
-    spyOn(mockBackendService, 'postApiCall').and.returnValue(
+    mockBackendService.postApiCall.and.returnValue(
       throwError(() => new Error('Failed to reset password'))
     );
-    spyOn(mockToastService, 'add');
 
     await component.changePassword();
 

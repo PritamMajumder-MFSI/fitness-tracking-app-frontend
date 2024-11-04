@@ -1,7 +1,7 @@
 <div class="outer-container">
   <mat-icon class="menu-icon" (click)="closeDrawer()">close</mat-icon>
   <div class="top-container">
-    <img class="logo" src="icons/logo.png" />
+    <img class="logo" alt="logo" src="icons/logo.png" />
     <p class="title">TrackFit</p>
   </div>
   <ul>
@@ -14,7 +14,13 @@
       <span>{{ nav.title }}</span>
     </li>
   </ul>
-  <div class="logout-btn" (click)="logout()">
+  <div
+    class="logout-btn"
+    (click)="logout()"
+    (keydown.enter)="logout()"
+    (keydown.space)="logout()"
+    tabindex="0"
+  >
     <span>Logout</span>
     <mat-icon>logout</mat-icon>
   </div>

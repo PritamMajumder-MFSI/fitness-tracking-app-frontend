@@ -75,7 +75,11 @@ describe('GoalDetailsComponent', () => {
   });
 
   it('should handle ngOnDestroy', () => {
-    component.chartCalories = { destroy: () => {} };
+    component.chartCalories = {
+      destroy: () => {
+        console.log('destroy');
+      },
+    };
     spyOn(component.chartCalories, 'destroy');
     component.ngOnDestroy();
     expect(component.chartCalories.destroy).toHaveBeenCalled();

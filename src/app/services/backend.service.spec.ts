@@ -19,7 +19,9 @@ describe('BackendService', () => {
     });
     service = TestBed.inject(BackendService);
   });
-
+  afterEach(() => {
+    TestBed.resetTestingModule();
+  });
   it('should be created', () => {
     expect(service).toBeTruthy();
   });

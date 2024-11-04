@@ -56,7 +56,7 @@ export class WorkoutsComponent implements OnInit {
   totalWorkouts = 0;
   pageSize = 5;
   pageIndex = 0;
-  dateFormat: string = 'dd/MM/yyyy';
+  dateFormat = 'dd/MM/yyyy';
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   private readonly platform = inject(PLATFORM_ID);
@@ -85,6 +85,7 @@ export class WorkoutsComponent implements OnInit {
       );
       this.workoutTypes = result.data;
     } catch (err) {
+      console.log(err);
       this.toastService.add('Could not fetch workout types', 3000, 'error');
     }
   }
@@ -99,6 +100,7 @@ export class WorkoutsComponent implements OnInit {
       this.dataSource = result.data.workouts;
       this.totalWorkouts = result.data.total;
     } catch (err) {
+      console.log(err);
       this.toastService.add('Could not fetch workouts', 3000, 'error');
     }
   }
@@ -109,7 +111,7 @@ export class WorkoutsComponent implements OnInit {
   }
   editWorkout(workout: IWorkout) {
     console.log('Editing workout:', workout);
-    let dialogRef = this.dialog.open(WorkoutDialogComponent, {
+    const dialogRef = this.dialog.open(WorkoutDialogComponent, {
       data: { workoutTypes: this.workoutTypes, workout },
     });
     dialogRef.afterClosed().subscribe(async (result: IWorkout) => {
@@ -121,6 +123,7 @@ export class WorkoutsComponent implements OnInit {
         this.toastService.add('Workout updated successfully', 3000, 'success');
         this.fetchWorkouts(this.pageIndex, this.pageSize);
       } catch (err) {
+        console.log(err);
         this.toastService.add('Failed to update workout', 3000, 'error');
       }
     });
@@ -138,11 +141,12 @@ export class WorkoutsComponent implements OnInit {
       this.dataSource = this.dataSource.filter((workout) => workout._id !== id);
       this.toastService.add('Workout deleted successfully', 3000, 'success');
     } catch (err) {
+      console.log(err);
       this.toastService.add('Failed to delete workout', 3000, 'error');
     }
   }
   createWorkout() {
-    let dialogRef = this.dialog.open(WorkoutDialogComponent, {
+    const dialogRef = this.dialog.open(WorkoutDialogComponent, {
       data: { workoutTypes: this.workoutTypes },
     });
 
@@ -153,6 +157,7 @@ export class WorkoutsComponent implements OnInit {
         this.toastService.add('Workout created successfully', 3000, 'success');
         this.fetchWorkouts(this.pageIndex, this.pageSize);
       } catch (err) {
+        console.log(err);
         this.toastService.add('Failed to create workout', 3000, 'error');
       }
     });

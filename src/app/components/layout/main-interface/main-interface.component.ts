@@ -3,7 +3,7 @@ import { SidenavComponent } from '../../sidenav/sidenav.component';
 import { Router, RouterOutlet } from '@angular/router';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { AuthServiceService } from '../../../services/auth-service.service';
-import { MatIcon, MatIconModule } from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 
 @Component({

@@ -9,7 +9,9 @@ describe('AuthServiceService', () => {
     TestBed.configureTestingModule({});
     service = TestBed.inject(AuthServiceService);
   });
-
+  afterEach(() => {
+    TestBed.resetTestingModule();
+  });
   it('should be created', () => {
     expect(service).toBeTruthy();
   });

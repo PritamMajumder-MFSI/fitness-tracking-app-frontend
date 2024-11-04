@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   inject,
+  OnInit,
   PLATFORM_ID,
   ViewChild,
 } from '@angular/core';
@@ -39,7 +40,7 @@ import { GoalDetailsComponent } from '../../../dialogs/goal-details/goal-details
   styleUrl: './goals.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class GoalsComponent {
+export class GoalsComponent implements OnInit {
   private readonly platform = inject(PLATFORM_ID);
   displayedColumns: string[] = [
     'goalType',
@@ -54,7 +55,7 @@ export class GoalsComponent {
   pageSize = 5;
   pageIndex = 0;
   isGridView = false;
-  dateFormat: string = 'dd/MM/yyyy';
+  dateFormat = 'dd/MM/yyyy';
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(
@@ -85,6 +86,7 @@ export class GoalsComponent {
       this.totalGoals = result.data.totalGoals;
       console.log(this.totalGoals);
     } catch (err) {
+      console.log(err);
       this.toastService.add('Could not fetch goals', 3000, 'error');
     }
   }
@@ -95,7 +97,7 @@ export class GoalsComponent {
   }
 
   createGoal() {
-    let dialogRef = this.dialog.open(GoalDialogComponent, {
+    const dialogRef = this.dialog.open(GoalDialogComponent, {
       data: {},
     });
 
@@ -106,6 +108,7 @@ export class GoalsComponent {
         this.toastService.add('Goal created successfully', 3000, 'success');
         this.fetchGoals(this.pageIndex, this.pageSize);
       } catch (err) {
+        console.log(err);
         this.toastService.add('Failed to create goal', 3000, 'error');
       }
     });

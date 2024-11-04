@@ -9,10 +9,7 @@ import { LoginComponent } from './login.component';
 import { BackendService } from '../../../services/backend.service';
 import { ToastService } from '../../../services/toast.service';
 import { provideRouter, Router } from '@angular/router';
-import {
-  BrowserAnimationsModule,
-  NoopAnimationsModule,
-} from '@angular/platform-browser/animations';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { routes } from '../../../app.routes';
 import { of, throwError } from 'rxjs';
 

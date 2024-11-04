@@ -1,7 +1,6 @@
 import { isPlatformBrowser } from '@angular/common';
 import {
   Component,
-  OnInit,
   ElementRef,
   ViewChild,
   AfterViewInit,
@@ -20,7 +19,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
   styleUrls: ['./running.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RunningComponent implements OnInit, AfterViewInit {
+export class RunningComponent implements AfterViewInit {
   @ViewChild('canvasContainer', { static: true }) canvasContainer!: ElementRef;
   private mixer: THREE.AnimationMixer | undefined;
   private isDragging = false;
@@ -28,8 +27,7 @@ export class RunningComponent implements OnInit, AfterViewInit {
   private model: THREE.Object3D | undefined;
   private renderer!: THREE.WebGLRenderer;
   private camera!: THREE.PerspectiveCamera;
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
-  ngOnInit() {}
+  constructor(@Inject(PLATFORM_ID) private platformId: object) {}
 
   ngAfterViewInit() {
     if (isPlatformBrowser(this.platformId)) {

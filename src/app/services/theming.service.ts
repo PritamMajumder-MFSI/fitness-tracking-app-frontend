@@ -7,7 +7,7 @@ type Mode = 'dark' | 'light';
 export class ThemingService {
   private readonly platform = inject(PLATFORM_ID);
 
-  private mode: { [key: string]: Mode } = { DARK: 'dark', LIGHT: 'light' };
+  private mode: Record<string, Mode> = { DARK: 'dark', LIGHT: 'light' };
   public currentMode = 'light';
   constructor() {
     if (isPlatformBrowser(this.platform)) {
@@ -17,13 +17,18 @@ export class ThemingService {
   private init() {
     const deviceMode = window.matchMedia('(prefers-color-scheme: dark)');
     let initMode = localStorage.getItem('theme');
+
     if (!initMode) {
-      deviceMode.matches
-        ? (initMode = this.mode['DARK'])
-        : (initMode = this.mode['LIGHT']);
+      if (deviceMode.matches) {
+        initMode = this.mode['DARK'];
+      } else {
+        initMode = this.mode['LIGHT'];
+      }
     }
+
     this.updateCurrentMode(initMode as Mode);
   }
+
   public updateCurrentMode(mode: Mode) {
     this.currentMode = mode;
     document.body.classList.remove('light');

@@ -54,6 +54,9 @@
           class="goal-card"
           *ngFor="let goal of dataSource"
           (click)="viewGoalDetails(goal)"
+          (keydown.enter)="viewGoalDetails(goal)"
+          (keydown.space)="viewGoalDetails(goal)"
+          tabindex="0"
         >
           <div class="goal-detail">
             <span class="anchor-span">Type:</span>
