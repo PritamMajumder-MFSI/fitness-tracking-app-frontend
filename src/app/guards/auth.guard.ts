@@ -5,7 +5,7 @@ import { BackendService } from '../services/backend.service';
 import { lastValueFrom } from 'rxjs';
 import { AuthServiceService } from '../services/auth-service.service';
 
-export const authGuardFn: CanActivateFn = async (route, state) => {
+export const authGuardFn: CanActivateFn = async () => {
   const router = inject(Router);
   const backendService = inject(BackendService);
   const authService = inject(AuthServiceService);
@@ -15,7 +15,6 @@ export const authGuardFn: CanActivateFn = async (route, state) => {
         'auth/validate-token'
       )
     );
-    console.log(res.data);
     authService.setDetails(res.data.user);
     return true;
   } catch {
