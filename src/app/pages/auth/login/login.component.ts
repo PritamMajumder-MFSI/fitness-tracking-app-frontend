@@ -58,13 +58,12 @@ export class LoginComponent {
     }
 
     try {
-      const response = await lastValueFrom(
+      await lastValueFrom(
         this._backendService.postApiCall<any, any>(
           '/auth/login',
           this.loginFormGroup.value
         )
       );
-      console.log(response);
       this.router.navigate(['/']);
     } catch (err) {
       this.toastService.add(
@@ -79,7 +78,8 @@ export class LoginComponent {
     form: FormGroup
   ) => string | null = getErrorMessage;
   async googleSignIn() {
-    window.location.href =
-      'http://localhost:3000/api/v1/auth/googleAuth?action=SIGN_IN';
+    window.location.assign(
+      'http://localhost:3000/api/v1/auth/googleAuth?action=SIGN_IN'
+    );
   }
 }
