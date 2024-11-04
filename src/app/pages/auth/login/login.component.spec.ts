@@ -19,7 +19,6 @@ describe('LoginComponent', () => {
   let mockBackendService: jasmine.SpyObj<BackendService>;
   let mockToastService: jasmine.SpyObj<ToastService>;
   let router: Router;
-  let mockRouter: jasmine.SpyObj<Router>; // Mock Router instance
   let windowStub: Window & typeof globalThis;
 
   beforeEach(async () => {
@@ -27,7 +26,6 @@ describe('LoginComponent', () => {
       'postApiCall',
     ]);
     mockToastService = jasmine.createSpyObj('ToastService', ['add']);
-    mockRouter = jasmine.createSpyObj('Router', ['navigate']);
     windowStub = {
       location: {
         assign(value: string) {
