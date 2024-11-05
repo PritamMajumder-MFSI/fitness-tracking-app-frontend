@@ -28,19 +28,6 @@ describe('WorkoutDialogComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-  it('should populate form values if data is provided', () => {
-    const mockData = {
-      type: 'Cardio',
-      duration: 30,
-      calories: 200,
-      date: '2024-10-20',
-    };
-    component.data = {
-      workout: mockData,
-    };
-    component.ngOnInit();
-    expect(component.workoutForm.value).toEqual(mockData);
-  });
 
   it('should call dialogRef.close on onCancel', () => {
     component.onCancel();

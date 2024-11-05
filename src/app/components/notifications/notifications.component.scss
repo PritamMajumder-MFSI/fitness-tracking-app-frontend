@@ -25,23 +25,25 @@
 
 .notification-item {
   padding: 8px 10px;
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid var(--textColor_3);
   cursor: pointer;
   transition: background-color 0.3s;
-
   &:hover {
     background-color: #aeccea2c;
+  }
+  p {
+    color: var(--textColor);
   }
 }
 
 .no-notifications {
   padding: 10px;
   text-align: center;
-  color: #999;
+  color: var(--textColor);
 }
 
 .notification-time {
   display: block;
   font-size: 0.8em;
-  color: #666;
+  color: var(--textColor_2);
 }

@@ -32,7 +32,7 @@ export const httpInterceptor: HttpInterceptorFn = <T>(
       httpLoadingService.setLoading(false, req.url);
       console.log('Interceptor failed->', err.status);
       if (err.status === 412) {
-        return handleRefreshToken(req, next, backendService, router);
+        return handleRefreshToken<T>(req, next, backendService, router);
       }
 
       return throwError(() => err);
@@ -40,9 +40,9 @@ export const httpInterceptor: HttpInterceptorFn = <T>(
   );
 };
 
-const handleRefreshToken = (
-  req: HttpRequest<any>,
-  next: (req: HttpRequest<any>) => Observable<HttpEvent<any>>,
+const handleRefreshToken = <T>(
+  req: HttpRequest<T>,
+  next: (req: HttpRequest<T>) => Observable<HttpEvent<T>>,
   backendService: BackendService,
   router: Router
 ) => {

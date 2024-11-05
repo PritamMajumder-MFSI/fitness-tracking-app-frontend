@@ -8,19 +8,25 @@
     >notifications</mat-icon
   >
 
-  <div *ngIf="isDropdownOpen" class="notification-dropdown">
-    <div
-      class="notification-list"
-      *ngIf="notifications.length > 0; else noNotifications"
-    >
-      <div class="notification-item" *ngFor="let notification of notifications">
+  <div
+    *ngIf="isDropdownOpen"
+    class="notification-dropdown"
+    #dropdown
+    (scroll)="onDropdownScroll($event)"
+  >
+    <div class="notification-list" *ngIf="notifications.length > 0">
+      <div
+        class="notification-item"
+        *ngFor="let notification of notifications"
+        routerLink="/goals"
+      >
         <p>{{ notification.message }}</p>
         <small class="notification-time">{{
           notification.createdAt | date : "short"
         }}</small>
       </div>
     </div>
-    <ng-template #noNotifications>
+    <ng-template *ngIf="notifications.length <= 0">
       <div class="no-notifications">No new notifications</div>
     </ng-template>
   </div>

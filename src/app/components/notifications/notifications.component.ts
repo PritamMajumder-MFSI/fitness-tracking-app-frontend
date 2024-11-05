@@ -1,9 +1,12 @@
 import { CommonModule } from '@angular/common';
 import {
+  ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   HostListener,
   OnInit,
+  ViewChild,
+  ElementRef,
 } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { BackendService } from '../../services/backend.service';
@@ -12,13 +15,16 @@ import {
   Notification,
   NotificationsResponse,
 } from '../../../models/Notification';
+import { ToastService } from '../../services/toast.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-notifications',
   standalone: true,
-  imports: [CommonModule, MatIconModule],
+  imports: [CommonModule, MatIconModule, RouterLink],
   templateUrl: './notifications.component.html',
   styleUrls: ['./notifications.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NotificationsComponent implements OnInit {
   isDropdownOpen = false;
@@ -28,9 +34,12 @@ export class NotificationsComponent implements OnInit {
   isLoading = false;
   hasMoreNotifications = true;
 
+  @ViewChild('dropdown', { static: false }) dropdown!: ElementRef;
+
   constructor(
     private backendService: BackendService,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    private toastService: ToastService
   ) {}
 
   ngOnInit(): void {
@@ -58,7 +67,8 @@ export class NotificationsComponent implements OnInit {
       this.currentPage++;
       this.cd.detectChanges();
     } catch (error) {
-      console.error('Error fetching notifications:', error);
+      console.log(error);
+      this.toastService.add('Error fetching notifications:', 3000, 'error');
     } finally {
       this.isLoading = false;
     }
@@ -88,11 +98,12 @@ export class NotificationsComponent implements OnInit {
     }
   }
 
-  @HostListener('window:scroll', [])
-  onScroll() {
-    const bottomOfWindow =
-      window.innerHeight + window.scrollY >= document.body.offsetHeight - 50;
-    if (this.isDropdownOpen && bottomOfWindow) {
+  @HostListener('scroll', ['$event'])
+  onDropdownScroll(event: Event) {
+    const target = event.target as HTMLElement;
+    const bottomOfDropdown =
+      target.scrollHeight - target.scrollTop <= target.clientHeight + 50;
+    if (this.isDropdownOpen && bottomOfDropdown) {
       this.fetchNotifications();
     }
   }
