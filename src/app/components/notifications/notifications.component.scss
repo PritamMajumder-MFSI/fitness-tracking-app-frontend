@@ -4,6 +4,9 @@
 
 .notification-icon {
   cursor: pointer;
+  background: transparent;
+  color: var(--textColor);
+  border: none;
 }
 
 .notification-dropdown {

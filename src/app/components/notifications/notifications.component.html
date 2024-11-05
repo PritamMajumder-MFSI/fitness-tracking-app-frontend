@@ -1,14 +1,7 @@
 <div class="notification-container">
-  <mat-icon
-    class="notification-icon"
-    (click)="toggleDropdown()"
-    (keydown.enter)="toggleDropdown()"
-    (keydown.space)="toggleDropdown()"
-    tabindex="0"
-    aria-haspopup="true"
-    >notifications</mat-icon
-  >
-
+  <button mat-icon-button (click)="toggleDropdown()" class="notification-icon">
+    <mat-icon>notifications</mat-icon>
+  </button>
   <div
     *ngIf="isDropdownOpen"
     class="notification-dropdown"
