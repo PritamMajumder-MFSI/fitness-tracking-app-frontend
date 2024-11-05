@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -38,7 +38,8 @@ export class ForgotPasswordComponent {
     private fb: FormBuilder,
     private router: Router,
     private backendService: BackendService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private cd: ChangeDetectorRef
   ) {
     this.otpForm = this.fb.group({
       email: ['', [Validators.email, Validators.required]],
@@ -89,6 +90,7 @@ export class ForgotPasswordComponent {
           'success'
         );
         this.otpSent = true;
+        this.cd.detectChanges();
       } else {
         this.toastService.add(
           res.message ? res.message : 'Failed to send email',
