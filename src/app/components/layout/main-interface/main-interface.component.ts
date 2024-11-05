@@ -5,6 +5,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { AuthServiceService } from '../../../services/auth-service.service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
+import { NotificationsComponent } from '../../notifications/notifications.component';
 
 @Component({
   selector: 'app-main-interface',
@@ -15,6 +16,7 @@ import { MatDividerModule } from '@angular/material/divider';
     MatSidenavModule,
     MatIconModule,
     MatDividerModule,
+    NotificationsComponent,
   ],
   templateUrl: './main-interface.component.html',
   styleUrl: './main-interface.component.scss',

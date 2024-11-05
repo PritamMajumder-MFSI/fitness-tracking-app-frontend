@@ -1,0 +1,27 @@
+<div class="notification-container">
+  <mat-icon
+    class="notification-icon"
+    (click)="toggleDropdown()"
+    (keydown.enter)="toggleDropdown()"
+    (keydown.space)="toggleDropdown()"
+    tabindex="0"
+    >notifications</mat-icon
+  >
+
+  <div *ngIf="isDropdownOpen" class="notification-dropdown">
+    <div
+      class="notification-list"
+      *ngIf="notifications.length > 0; else noNotifications"
+    >
+      <div class="notification-item" *ngFor="let notification of notifications">
+        <p>{{ notification.message }}</p>
+        <small class="notification-time">{{
+          notification.createdAt | date : "short"
+        }}</small>
+      </div>
+    </div>
+    <ng-template #noNotifications>
+      <div class="no-notifications">No new notifications</div>
+    </ng-template>
+  </div>
+</div>
